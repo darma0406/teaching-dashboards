@@ -9,4 +9,9 @@
 目前網站入口：
 
 - `index.html`
+- `國小數學/index.html`
 - `康軒五下第七單元-表面積/index.html`
+
+製作、優化與發布流程請看：
+
+- `WORKFLOW.md`
