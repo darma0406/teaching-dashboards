@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第07單元 表面積教學駕駛艙</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="drawLayer" aria-hidden="true"></canvas>
+  <div id="laserDot" aria-hidden="true"></div>
+  <div id="bigEffect" aria-live="polite"></div>
+
+  <header class="hero" id="top">
+    <p class="eyebrow">國小數學 5 下 第 07 單元</p>
+    <h1>表面積教學駕駛艙</h1>
+  </header>
+
+  <nav class="focus-nav" aria-label="教學重點">
+    <button class="focus-btn active" data-focus="0">認識表面積</button>
+    <button class="focus-btn" data-focus="1">正方體表面積</button>
+    <button class="focus-btn" data-focus="2">長方體表面積</button>
+    <button class="focus-btn" data-focus="3">切開後變化</button>
+    <button class="focus-btn" data-focus="4">堆疊後變化</button>
+  </nav>
+
+  <main class="dashboard">
+    <section class="lesson-head">
+      <p id="focusLabel" class="eyebrow">教學重點 1</p>
+      <h2 id="focusTitle">認識表面積</h2>
+      <p id="focusGoal">把立體形體每一個面展開，理解所有面的面積總和就是表面積。</p>
+    </section>
+
+    <section class="panel video-panel">
+      <div class="panel-title">
+        <h3>學生自學影片</h3>
+        <span>114學年度下學期康軒第七單元 表面積</span>
+      </div>
+      <div class="video-embed">
+        <iframe
+          src="https://www.youtube.com/embed/N0Galb0f3BQ"
+          title="表面積學生自學影片"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <section class="panel visual-panel">
+      <div class="panel-title">
+        <h3>互動視覺化</h3>
+        <span id="visualHint">拖曳、點選，連結操作與算式</span>
+      </div>
+      <div id="visualStage" class="visual-stage"></div>
+      <div id="visualControls" class="visual-controls"></div>
+    </section>
+
+    <section class="panel quiz-panel">
+      <div class="panel-title">
+        <h3>形成性評量</h3>
+        <span id="quizStatus">尚未作答</span>
+      </div>
+      <p id="quizQuestion" class="quiz-question"></p>
+      <div id="quizOptions" class="quiz-options"></div>
+      <div id="quizFeedback" class="quiz-feedback" aria-live="polite"></div>
+    </section>
+
+    <section class="panel infographic-panel">
+      <div class="panel-title">
+        <h3>重點整理</h3>
+        <a id="infoLink" href="#" target="_blank" rel="noreferrer">開啟圖片</a>
+      </div>
+      <div id="infoFrames" class="info-frames"></div>
+    </section>
+  </main>
+
+  <div class="floating-actions" aria-label="浮動工具">
+    <button id="openPen" class="round-tool" aria-label="畫筆工具">✎</button>
+    <button id="openTools" class="round-tool" aria-label="工具箱">☰</button>
+  </div>
+
+  <aside id="penDrawer" class="drawer pen-drawer" aria-label="畫筆工具">
+    <div class="drawer-head">
+      <h3>畫筆</h3>
+      <button class="close-drawer" data-close="penDrawer" aria-label="關閉">×</button>
+    </div>
+    <div class="pen-row">
+      <button class="pen-color active" data-color="#ffffff" style="--swatch:#ffffff" aria-label="白色粉筆"></button>
+      <button class="pen-color" data-color="#ffe36f" style="--swatch:#ffe36f" aria-label="黃色粉筆"></button>
+      <button class="pen-color" data-color="#ff5b5b" style="--swatch:#ff5b5b" aria-label="紅色粉筆"></button>
+    </div>
+    <label class="control">畫筆粗細
+      <input id="penSize" type="range" min="3" max="18" value="7">
+    </label>
+    <button id="clearInk" class="icon-button" aria-label="清除筆跡" title="清除筆跡">🗑</button>
+    <hr>
+    <h3>雷射筆</h3>
+    <label class="control">雷射粗細
+      <input id="laserSize" type="range" min="18" max="90" value="42">
+    </label>
+    <button id="laserToggle">開啟雷射筆</button>
+  </aside>
+
+  <aside id="toolDrawer" class="drawer tool-drawer" aria-label="工具箱">
+    <div class="drawer-head">
+      <h3>工具箱</h3>
+      <button class="close-drawer" data-close="toolDrawer" aria-label="關閉">×</button>
+    </div>
+
+    <section>
+      <h3>抽籤</h3>
+      <div class="range-row">
+        <label>從 <input id="rangeStart" type="number" value="1" min="1"></label>
+        <label>到 <input id="rangeEnd" type="number" value="25" min="1"></label>
+        <button id="buildNames">產生名單</button>
+      </div>
+      <textarea id="namesInput" rows="6"></textarea>
+      <button id="drawName">抽一位</button>
+      <p id="drawResult" class="tool-result">等待抽籤</p>
+    </section>
+
+    <section>
+      <h3>計時器</h3>
+      <div class="timer-row">
+        <button data-sec="30">30秒</button>
+        <button data-sec="60">1分</button>
+        <button data-sec="120">2分</button>
+        <button data-sec="300">5分</button>
+      </div>
+      <div id="timerDisplay" class="timer">00:00</div>
+      <button id="timerToggle">開始</button>
+      <button id="timerReset">歸零</button>
+      <div class="custom-time">
+        <label class="control">其他時間（分鐘）
+          <input id="customMinutes" type="number" min="1" max="60" value="10">
+        </label>
+        <button id="setCustomTime">設定</button>
+      </div>
+    </section>
+  </aside>
+
+  <script src="script.js"></script>
+</body>
+</html>

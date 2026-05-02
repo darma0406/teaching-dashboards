@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1800" viewBox="0 0 1200 1800">
+  <rect width="1200" height="1800" fill="#183f35"/>
+  <rect x="44" y="44" width="1112" height="1712" rx="28" fill="none" stroke="#d8e8d1" stroke-width="6" opacity=".75"/>
+  <g font-family="Microsoft JhengHei, Noto Sans TC, Arial, sans-serif" fill="#f7f0cf">
+    <text x="92" y="150" font-size="70" font-weight="700">切開後的表面積變化</text>
+    <text x="96" y="225" font-size="34" fill="#e7f4ea">重點：切開會多出新的切面，所以表面積會增加。</text>
+  </g>
+  <g fill="none" stroke="#f5f1dc" stroke-width="7" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M150 430 L365 330 L590 430 L365 540 Z"/>
+    <path d="M150 430 L150 700 L365 820 L365 540"/>
+    <path d="M590 430 L590 700 L365 820"/>
+    <path d="M365 330 L365 540"/>
+    <path d="M695 430 L910 330 L1070 430 L855 540 Z"/>
+    <path d="M695 430 L695 700 L855 820 L855 540"/>
+    <path d="M1070 430 L1070 700 L855 820"/>
+    <path d="M910 330 L910 600"/>
+    <path d="M910 600 L1070 700"/>
+  </g>
+  <g fill="none" stroke="#ffe36f" stroke-width="9" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M910 330 L855 540 L855 820 L910 600 Z"/>
+    <path d="M755 900 C690 990 540 995 470 900"/>
+    <path d="M477 898 L500 960"/>
+    <path d="M477 898 L540 890"/>
+  </g>
+  <g font-family="Microsoft JhengHei, Noto Sans TC, Arial, sans-serif" fill="#fff7d6">
+    <text x="195" y="895" font-size="38">原本的長方體</text>
+    <text x="748" y="895" font-size="38">切開後</text>
+    <text x="772" y="960" font-size="34" fill="#ffe36f">新增切面</text>
+  </g>
+  <g font-family="Microsoft JhengHei, Noto Sans TC, Arial, sans-serif" font-size="42" fill="#f7f0cf">
+    <text x="110" y="1090">怎麼想？</text>
+    <text x="140" y="1170">1. 先看原本有哪些外面。</text>
+    <text x="140" y="1250">2. 切開後，切口變成新的外面。</text>
+    <text x="140" y="1330">3. 新增的面積要加進表面積。</text>
+  </g>
+  <g fill="none" stroke="#cfe8ff" stroke-width="5" stroke-dasharray="12 16">
+    <rect x="104" y="1430" width="992" height="210" rx="22"/>
+  </g>
+  <g font-family="Microsoft JhengHei, Noto Sans TC, Arial, sans-serif" fill="#cfe8ff">
+    <text x="135" y="1505" font-size="42" font-weight="700">常見錯誤</text>
+    <text x="135" y="1585" font-size="36">只算切成兩塊的外形，忘記把「切面」也算進去。</text>
+  </g>
+</svg>

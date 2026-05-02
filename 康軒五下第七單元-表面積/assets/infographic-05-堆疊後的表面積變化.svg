@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1800" viewBox="0 0 1200 1800">
+  <rect width="1200" height="1800" fill="#183f35"/>
+  <rect x="44" y="44" width="1112" height="1712" rx="28" fill="none" stroke="#d8e8d1" stroke-width="6" opacity=".75"/>
+  <g font-family="Microsoft JhengHei, Noto Sans TC, Arial, sans-serif" fill="#f7f0cf">
+    <text x="92" y="150" font-size="70" font-weight="700">堆疊後的表面積變化</text>
+    <text x="96" y="225" font-size="34" fill="#e7f4ea">重點：重疊在一起的面看不見，計算時要扣掉。</text>
+  </g>
+  <defs>
+    <g id="cube" fill="none" stroke="#f5f1dc" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M0 90 L125 30 L250 90 L125 155 Z"/>
+      <path d="M0 90 L0 240 L125 310 L125 155"/>
+      <path d="M250 90 L250 240 L125 310"/>
+    </g>
+  </defs>
+  <g transform="translate(170 430)">
+    <use href="#cube"/>
+    <g transform="translate(250 0)"><use href="#cube"/></g>
+    <g transform="translate(125 -160)"><use href="#cube"/></g>
+  </g>
+  <g fill="none" stroke="#ffe36f" stroke-width="9" stroke-linecap="round">
+    <path d="M420 520 C500 470 610 470 690 520"/>
+    <path d="M690 520 L650 494"/>
+    <path d="M690 520 L650 548"/>
+    <path d="M505 735 L610 680"/>
+    <path d="M610 680 L600 735"/>
+    <path d="M610 680 L555 665"/>
+  </g>
+  <g font-family="Microsoft JhengHei, Noto Sans TC, Arial, sans-serif" fill="#ffe36f">
+    <text x="725" y="530" font-size="38">接觸的面</text>
+    <text x="725" y="585" font-size="38">不算外表面</text>
+  </g>
+  <g font-family="Microsoft JhengHei, Noto Sans TC, Arial, sans-serif" font-size="42" fill="#f7f0cf">
+    <text x="110" y="1015">怎麼想？</text>
+    <text x="140" y="1095">1. 先想每個積木原本有幾個面。</text>
+    <text x="140" y="1175">2. 找出兩塊積木貼在一起的地方。</text>
+    <text x="140" y="1255">3. 每貼一次，要扣掉兩個看不見的面。</text>
+  </g>
+  <g fill="none" stroke="#cfe8ff" stroke-width="5" stroke-dasharray="12 16">
+    <rect x="104" y="1380" width="992" height="260" rx="22"/>
+  </g>
+  <g font-family="Microsoft JhengHei, Noto Sans TC, Arial, sans-serif" fill="#cfe8ff">
+    <text x="135" y="1455" font-size="42" font-weight="700">檢查口訣</text>
+    <text x="135" y="1535" font-size="36">看得到的面才算表面積；貼住的面要扣掉。</text>
+    <text x="135" y="1595" font-size="36">畫圖圈出接觸面，可以少算錯。</text>
+  </g>
+</svg>
