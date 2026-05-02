@@ -55,6 +55,31 @@ button:hover, button.active {
   background: rgba(255, 227, 111, .13);
 }
 
+.home-link {
+  position: fixed;
+  left: 18px;
+  top: 18px;
+  z-index: 22;
+  display: inline-grid;
+  place-items: center;
+  min-width: 82px;
+  min-height: 48px;
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  color: var(--chalk);
+  background: rgba(8, 42, 34, .9);
+  box-shadow: 0 10px 22px var(--shadow);
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.home-link:hover {
+  border-color: var(--yellow);
+  color: var(--yellow);
+  background: rgba(255, 227, 111, .13);
+}
+
 .hero, .focus-nav, .dashboard {
   width: min(1480px, calc(100vw - 56px));
   margin: 0 auto;
