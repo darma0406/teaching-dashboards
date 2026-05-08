@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+  <rect width="960" height="540" fill="#fbfcf9"/>
+  <text x="64" y="88" font-size="54" font-family="Microsoft JhengHei, sans-serif" font-weight="800" fill="#20302a">認識百分率</text>
+  <text x="64" y="142" font-size="26" font-family="Microsoft JhengHei, sans-serif" fill="#60706a">百分率是以 100 為基準的比率</text>
+  <g transform="translate(70 190)">
+    <rect width="34" height="34" fill="#0f7f8c"/><rect x="42" width="34" height="34" fill="#0f7f8c"/><rect x="84" width="34" height="34" fill="#0f7f8c"/><rect x="126" width="34" height="34" fill="#0f7f8c"/><rect x="168" width="34" height="34" fill="#0f7f8c"/>
+    <rect y="42" width="34" height="34" fill="#0f7f8c"/><rect x="42" y="42" width="34" height="34" fill="#0f7f8c"/><rect x="84" y="42" width="34" height="34" fill="#0f7f8c"/><rect x="126" y="42" width="34" height="34" fill="#0f7f8c"/><rect x="168" y="42" width="34" height="34" fill="#0f7f8c"/>
+  </g>
+  <text x="360" y="270" font-size="84" font-family="Microsoft JhengHei, sans-serif" font-weight="800" fill="#0f7f8c">20% = 20/100</text>
+  <text x="360" y="340" font-size="30" font-family="Microsoft JhengHei, sans-serif" fill="#60706a">例如手機電量 20%，就是滿電 100 份中的 20 份。</text>
+  <text x="64" y="470" font-size="28" font-family="Microsoft JhengHei, sans-serif" fill="#20302a">各部分百分率合起來是 100%。</text>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+  <rect width="960" height="540" fill="#fbfcf9"/>
+  <text x="64" y="88" font-size="54" font-family="Microsoft JhengHei, sans-serif" font-weight="800" fill="#20302a">互換表示</text>
+  <text x="64" y="142" font-size="26" font-family="Microsoft JhengHei, sans-serif" fill="#60706a">百分率、分數、小數是同一個比率的不同寫法</text>
+  <rect x="70" y="210" width="230" height="150" rx="16" fill="#eef7f2"/>
+  <rect x="365" y="210" width="230" height="150" rx="16" fill="#fff7e9"/>
+  <rect x="660" y="210" width="230" height="150" rx="16" fill="#f7edf0"/>
+  <text x="118" y="300" font-size="52" font-family="Microsoft JhengHei, sans-serif" font-weight="800" fill="#0f7f8c">32%</text>
+  <text x="414" y="300" font-size="52" font-family="Microsoft JhengHei, sans-serif" font-weight="800" fill="#b87918">32/100</text>
+  <text x="714" y="300" font-size="52" font-family="Microsoft JhengHei, sans-serif" font-weight="800" fill="#b74755">0.32</text>
+  <text x="110" y="430" font-size="28" font-family="Microsoft JhengHei, sans-serif" fill="#20302a">百分率化小數：小數點向左移兩位</text>
+  <text x="110" y="476" font-size="28" font-family="Microsoft JhengHei, sans-serif" fill="#20302a">小數化百分率：小數點向右移兩位</text>
+</svg>

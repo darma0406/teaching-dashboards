@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第8單元 比率與百分率教學儀表板</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="home-link" href="../國小數學/" aria-label="回到國小數學">國小數學</a>
+
+  <header class="hero" id="top">
+    <p class="eyebrow">國小數學 5 下 第 08 單元</p>
+    <h1>比率與百分率</h1>
+    <p>從部分占全體的比率，銜接百分率、互換與生活中的折扣、off、幾成和加成。</p>
+  </header>
+
+  <nav class="focus-nav" aria-label="教學焦點">
+    <button class="focus-btn active" data-focus="0">認識比率</button>
+    <button class="focus-btn" data-focus="1">認識百分率</button>
+    <button class="focus-btn" data-focus="2">互換表示</button>
+    <button class="focus-btn" data-focus="3">百分率應用</button>
+    <button class="focus-btn" data-focus="4">折扣與加成</button>
+  </nav>
+
+  <main class="dashboard">
+    <section class="lesson-head">
+      <p id="focusLabel" class="eyebrow">教學焦點 1</p>
+      <h2 id="focusTitle">認識比率</h2>
+      <p id="focusGoal">理解「部分數量占全部數量的幾分之幾」就是比率，並能比較不同總量下的比率。</p>
+    </section>
+
+    <section class="panel video-panel">
+      <div class="panel-title">
+        <h3>影片總覽</h3>
+        <span>NotebookLM 影片可放入 YouTube 後在此嵌入</span>
+      </div>
+      <div class="video-overview">
+        <ol>
+          <li>先抓住部分量與全部量，避免只比較人數或數量。</li>
+          <li>把百分率看成分母 100 的比率，再連到小數與分數。</li>
+          <li>折扣、off、幾成、加成要先判斷是「付多少」還是「減多少」。</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="panel visual-panel">
+      <div class="panel-title">
+        <h3>互動視覺化</h3>
+        <span id="visualHint">拖曳或點選控制項，觀察部分、全體與百分率的關係。</span>
+      </div>
+      <div id="visualStage" class="visual-stage"></div>
+      <div id="visualControls" class="visual-controls"></div>
+    </section>
+
+    <section class="panel quiz-panel">
+      <div class="panel-title">
+        <h3>形成性評量</h3>
+        <span id="quizStatus">每個焦點 2 題</span>
+      </div>
+      <p id="quizQuestion" class="quiz-question"></p>
+      <div id="quizOptions" class="quiz-options"></div>
+      <div id="quizFeedback" class="quiz-feedback" aria-live="polite"></div>
+    </section>
+
+    <section class="panel summary-panel">
+      <div class="panel-title">
+        <h3>關鍵摘要</h3>
+        <span id="summaryCaption">依教學焦點切換摘要頁</span>
+      </div>
+      <img id="summaryImage" src="assets/deck-page-01.svg" alt="比率關鍵摘要">
+    </section>
+
+    <section class="panel teacher-panel">
+      <div class="panel-title">
+        <h3>教師工具</h3>
+        <span>可投影、可口頭追問</span>
+      </div>
+      <div class="tool-grid">
+        <article>
+          <h4>常見迷思</h4>
+          <ul id="misconceptions"></ul>
+        </article>
+        <article>
+          <h4>追問句</h4>
+          <ul id="teacherPrompts"></ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

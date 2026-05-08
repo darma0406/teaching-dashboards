@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="t d">
+  <title id="t">比率關鍵摘要</title>
+  <desc id="d">部分量占全部量的幾分之幾就是比率</desc>
+  <rect width="960" height="540" fill="#fbfcf9"/>
+  <text x="64" y="88" font-size="54" font-family="Microsoft JhengHei, sans-serif" font-weight="800" fill="#20302a">認識比率</text>
+  <text x="64" y="142" font-size="26" font-family="Microsoft JhengHei, sans-serif" fill="#60706a">部分數量占全部數量的幾分之幾</text>
+  <rect x="64" y="190" width="360" height="220" rx="16" fill="#eef7f2" stroke="#d9e2dc"/>
+  <text x="94" y="250" font-size="30" font-family="Microsoft JhengHei, sans-serif" fill="#20302a">出席率</text>
+  <text x="94" y="318" font-size="58" font-family="Microsoft JhengHei, sans-serif" font-weight="800" fill="#0f7f8c">20 / 25</text>
+  <text x="94" y="370" font-size="24" font-family="Microsoft JhengHei, sans-serif" fill="#60706a">出席人數 / 全班人數</text>
+  <rect x="508" y="190" width="360" height="220" rx="16" fill="#fff7e9" stroke="#ead6b3"/>
+  <text x="538" y="250" font-size="30" font-family="Microsoft JhengHei, sans-serif" fill="#20302a">比較比率</text>
+  <text x="538" y="318" font-size="42" font-family="Microsoft JhengHei, sans-serif" font-weight="800" fill="#b87918">先求比率</text>
+  <text x="538" y="370" font-size="24" font-family="Microsoft JhengHei, sans-serif" fill="#60706a">總量不同，不能只看數量</text>
+</svg>

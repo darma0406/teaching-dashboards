@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+  <rect width="960" height="540" fill="#fbfcf9"/>
+  <text x="64" y="88" font-size="54" font-family="Microsoft JhengHei, sans-serif" font-weight="800" fill="#20302a">折扣、off、幾成與加成</text>
+  <text x="64" y="142" font-size="26" font-family="Microsoft JhengHei, sans-serif" fill="#60706a">生活語言要先翻成百分率</text>
+  <rect x="64" y="205" width="250" height="180" rx="16" fill="#eef7f2"/>
+  <text x="94" y="270" font-size="34" font-family="Microsoft JhengHei, sans-serif" font-weight="800" fill="#20302a">打七五折</text>
+  <text x="94" y="330" font-size="34" font-family="Microsoft JhengHei, sans-serif" fill="#0f7f8c">付 75%</text>
+  <rect x="356" y="205" width="250" height="180" rx="16" fill="#fff7e9"/>
+  <text x="386" y="270" font-size="34" font-family="Microsoft JhengHei, sans-serif" font-weight="800" fill="#20302a">30% off</text>
+  <text x="386" y="330" font-size="34" font-family="Microsoft JhengHei, sans-serif" fill="#b87918">付 70%</text>
+  <rect x="648" y="205" width="250" height="180" rx="16" fill="#f7edf0"/>
+  <text x="678" y="270" font-size="34" font-family="Microsoft JhengHei, sans-serif" font-weight="800" fill="#20302a">加二成</text>
+  <text x="678" y="330" font-size="34" font-family="Microsoft JhengHei, sans-serif" fill="#b74755">加 20%</text>
+  <text x="64" y="465" font-size="28" font-family="Microsoft JhengHei, sans-serif" fill="#60706a">重點：折扣是售價比例，off 是減少比例，加成要加回原量。</text>
+</svg>
