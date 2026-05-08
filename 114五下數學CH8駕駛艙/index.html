@@ -3,16 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>第8單元 比率與百分率教學儀表板</title>
+  <title>114五下數學CH8駕駛艙</title>
+  <link rel="icon" href="data:,">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <canvas id="drawLayer" aria-hidden="true"></canvas>
+  <div id="laserLayer" aria-hidden="true">
+    <span id="laserDot"></span>
+  </div>
+  <div id="bigEffect" aria-live="polite"></div>
+
   <a class="home-link" href="../國小數學/" aria-label="回到國小數學">國小數學</a>
 
   <header class="hero" id="top">
-    <p class="eyebrow">國小數學 5 下 第 08 單元</p>
-    <h1>比率與百分率</h1>
-    <p>從部分占全體的比率，銜接百分率、互換與生活中的折扣、off、幾成和加成。</p>
+    <p class="eyebrow">114 五下數學 CH8</p>
+    <h1>比率與百分率教學駕駛艙</h1>
+    <p>從部分量占全體量出發，連結百分率、互換表示、生活應用、折扣與加成。</p>
   </header>
 
   <nav class="focus-nav" aria-label="教學焦點">
@@ -25,29 +32,29 @@
 
   <main class="dashboard">
     <section class="lesson-head">
-      <p id="focusLabel" class="eyebrow">教學焦點 1</p>
-      <h2 id="focusTitle">認識比率</h2>
-      <p id="focusGoal">理解「部分數量占全部數量的幾分之幾」就是比率，並能比較不同總量下的比率。</p>
+      <div>
+        <p id="focusLabel" class="eyebrow">教學焦點 1</p>
+        <h2 id="focusTitle">認識比率</h2>
+        <p id="focusGoal">理解部分數量占全部數量的幾分之幾就是比率。</p>
+      </div>
+      <div class="focus-meter" aria-label="單元進度">
+        <span id="focusCount">1 / 5</span>
+      </div>
     </section>
 
-    <section class="panel video-panel">
+    <section class="panel explain-panel">
       <div class="panel-title">
-        <h3>影片總覽</h3>
-        <span>NotebookLM 影片可放入 YouTube 後在此嵌入</span>
+        <h3>教學說明</h3>
+        <span id="lessonTag">概念建立</span>
       </div>
-      <div class="video-overview">
-        <ol>
-          <li>先抓住部分量與全部量，避免只比較人數或數量。</li>
-          <li>把百分率看成分母 100 的比率，再連到小數與分數。</li>
-          <li>折扣、off、幾成、加成要先判斷是「付多少」還是「減多少」。</li>
-        </ol>
-      </div>
+      <p id="teachingNote"></p>
+      <div id="lessonSteps" class="step-list"></div>
     </section>
 
     <section class="panel visual-panel">
       <div class="panel-title">
         <h3>互動視覺化</h3>
-        <span id="visualHint">拖曳或點選控制項，觀察部分、全體與百分率的關係。</span>
+        <span id="visualHint">調整數值，觀察部分量與全體量的關係。</span>
       </div>
       <div id="visualStage" class="visual-stage"></div>
       <div id="visualControls" class="visual-controls"></div>
@@ -56,11 +63,16 @@
     <section class="panel quiz-panel">
       <div class="panel-title">
         <h3>形成性評量</h3>
-        <span id="quizStatus">每個焦點 2 題</span>
+        <span id="quizStatus">第 1 / 4 題</span>
       </div>
+      <p id="quizType" class="quiz-type"></p>
       <p id="quizQuestion" class="quiz-question"></p>
-      <div id="quizOptions" class="quiz-options"></div>
+      <div id="quizAnswerArea" class="quiz-answer-area"></div>
       <div id="quizFeedback" class="quiz-feedback" aria-live="polite"></div>
+      <div class="quiz-actions">
+        <button id="prevQuiz" type="button">上一題</button>
+        <button id="nextQuiz" type="button">下一題</button>
+      </div>
     </section>
 
     <section class="panel summary-panel">
@@ -73,21 +85,96 @@
 
     <section class="panel teacher-panel">
       <div class="panel-title">
-        <h3>教師工具</h3>
-        <span>可投影、可口頭追問</span>
+        <h3>教師追問與迷思</h3>
+        <span>投影時可直接使用</span>
       </div>
-      <div class="tool-grid">
+      <div class="teacher-grid">
         <article>
           <h4>常見迷思</h4>
           <ul id="misconceptions"></ul>
         </article>
         <article>
-          <h4>追問句</h4>
+          <h4>教師追問句</h4>
           <ul id="teacherPrompts"></ul>
         </article>
       </div>
     </section>
   </main>
+
+  <div class="floating-actions" aria-label="教學工具快捷鍵">
+    <button id="openPen" class="round-tool" aria-label="開啟畫筆">筆</button>
+    <button id="openLaser" class="round-tool" aria-label="開啟雷射筆">點</button>
+    <button id="openTools" class="round-tool" aria-label="開啟工具箱">工具</button>
+  </div>
+
+  <aside id="penDrawer" class="drawer compact-drawer" aria-label="畫筆工具">
+    <div class="drawer-head">
+      <h3>畫筆</h3>
+      <button class="close-drawer" data-close="penDrawer" aria-label="收合畫筆面板">×</button>
+    </div>
+    <div class="pen-row" aria-label="畫筆顏色">
+      <button class="pen-color" data-color="#111111" style="--swatch:#111111" aria-label="黑色畫筆"></button>
+      <button class="pen-color" data-color="#d62828" style="--swatch:#d62828" aria-label="紅色畫筆"></button>
+      <button class="pen-color" data-color="#1d4ed8" style="--swatch:#1d4ed8" aria-label="藍色畫筆"></button>
+      <button class="pen-color" data-color="#16803c" style="--swatch:#16803c" aria-label="綠色畫筆"></button>
+      <button class="pen-color" data-color="#f2c94c" style="--swatch:#f2c94c" aria-label="黃色畫筆"></button>
+    </div>
+    <label class="control">畫筆粗細
+      <input id="penSize" type="range" min="2" max="24" value="7">
+    </label>
+    <div class="drawer-actions">
+      <button id="clearInk" type="button" aria-label="清除筆跡">清除筆跡</button>
+      <button id="closePenMode" type="button" aria-label="關閉畫筆">關閉畫筆</button>
+    </div>
+  </aside>
+
+  <aside id="laserDrawer" class="drawer compact-drawer" aria-label="雷射筆工具">
+    <div class="drawer-head">
+      <h3>雷射筆</h3>
+      <button class="close-drawer" data-close="laserDrawer" aria-label="收合雷射筆面板">×</button>
+    </div>
+    <label class="control">雷射點大小
+      <input id="laserSize" type="range" min="18" max="86" value="44">
+    </label>
+    <div class="drawer-actions">
+      <button id="laserToggle" type="button" aria-label="開啟雷射筆">開啟雷射筆</button>
+    </div>
+  </aside>
+
+  <aside id="toolDrawer" class="drawer tool-drawer" aria-label="教師工具箱">
+    <div class="drawer-head">
+      <h3>教師工具箱</h3>
+      <button class="close-drawer" data-close="toolDrawer" aria-label="收合工具箱">×</button>
+    </div>
+    <section>
+      <h4>抽籤</h4>
+      <div class="range-pair">
+        <label>起號<input id="rangeStart" type="number" min="1" value="1"></label>
+        <label>迄號<input id="rangeEnd" type="number" min="1" value="30"></label>
+      </div>
+      <textarea id="namesInput" rows="5" aria-label="抽籤名單"></textarea>
+      <button id="drawName" type="button" aria-label="抽出一位學生">抽一位</button>
+      <p id="drawResult" class="tool-result">等待抽籤</p>
+    </section>
+    <section>
+      <h4>計時器</h4>
+      <div class="timer-row">
+        <button type="button" data-sec="30">30秒</button>
+        <button type="button" data-sec="60">1分</button>
+        <button type="button" data-sec="120">2分</button>
+        <button type="button" data-sec="300">5分</button>
+      </div>
+      <div id="timerDisplay" class="timer" aria-live="polite">00:00</div>
+      <div class="timer-controls">
+        <button id="timerToggle" type="button" aria-label="開始或暫停計時">開始</button>
+        <button id="timerReset" type="button" aria-label="重設計時器">歸零</button>
+      </div>
+      <label class="control">自訂分鐘
+        <input id="customMinutes" type="number" min="1" max="60" value="10">
+      </label>
+      <button id="setCustomTime" type="button" aria-label="設定自訂計時">設定</button>
+    </section>
+  </aside>
 
   <script src="script.js"></script>
 </body>
