@@ -17,9 +17,17 @@
   <a class="home-link" href="../國小數學/" aria-label="回到國小數學">國小數學</a>
 
   <header class="hero" id="top">
-    <p class="eyebrow">114 五下數學 CH8</p>
+    <p class="eyebrow">國小數學 5 下 第 08 單元</p>
     <h1>比率與百分率教學駕駛艙</h1>
-    <p>從部分量占全體量出發，連結百分率、互換表示、生活應用、折扣與加成。</p>
+    <p>教學目標：從部分量占全體量出發，連結百分率、互換表示、生活應用、折扣與加成。</p>
+    <div class="hero-focus" aria-label="五大焦點">
+      <span>認識比率</span>
+      <span>認識百分率</span>
+      <span>互換表示</span>
+      <span>百分率應用</span>
+      <span>折扣與加成</span>
+    </div>
+    <a class="start-button" href="#lessonArea">快速開始</a>
   </header>
 
   <nav class="focus-nav" aria-label="教學焦點">
@@ -30,7 +38,7 @@
     <button class="focus-btn" data-focus="4">折扣與加成</button>
   </nav>
 
-  <main class="dashboard">
+  <main id="lessonArea" class="dashboard">
     <section class="lesson-head">
       <div>
         <p id="focusLabel" class="eyebrow">教學焦點 1</p>
@@ -42,13 +50,17 @@
       </div>
     </section>
 
-    <section class="panel explain-panel">
+    <section class="panel concept-panel">
       <div class="panel-title">
-        <h3>教學說明</h3>
+        <h3>概念卡</h3>
         <span id="lessonTag">概念建立</span>
       </div>
       <p id="teachingNote"></p>
       <div id="lessonSteps" class="step-list"></div>
+      <div class="life-example">
+        <strong>生活例子</strong>
+        <p id="lifeExample"></p>
+      </div>
     </section>
 
     <section class="panel visual-panel">
@@ -58,6 +70,14 @@
       </div>
       <div id="visualStage" class="visual-stage"></div>
       <div id="visualControls" class="visual-controls"></div>
+    </section>
+
+    <section class="panel practice-panel">
+      <div class="panel-title">
+        <h3>操作練習</h3>
+        <span id="practiceCaption">跟著數值做一次</span>
+      </div>
+      <div id="practiceBody" class="practice-body"></div>
     </section>
 
     <section class="panel quiz-panel">
@@ -77,10 +97,11 @@
 
     <section class="panel summary-panel">
       <div class="panel-title">
-        <h3>關鍵摘要</h3>
+        <h3>重點整理</h3>
         <span id="summaryCaption">依教學焦點切換摘要頁</span>
       </div>
       <img id="summaryImage" src="assets/deck-page-01.svg" alt="比率關鍵摘要">
+      <div id="sectionSummary" class="section-summary"></div>
     </section>
 
     <section class="panel teacher-panel">
@@ -97,6 +118,45 @@
           <h4>教師追問句</h4>
           <ul id="teacherPrompts"></ul>
         </article>
+      </div>
+    </section>
+
+    <section class="panel notebook-panel">
+      <div class="panel-title">
+        <h3>本節重點摘要</h3>
+        <span>NotebookLM 可直接使用</span>
+      </div>
+      <div class="notebook-grid">
+        <article>
+          <h4>教師講稿摘要</h4>
+          <p id="teacherScript"></p>
+        </article>
+        <article>
+          <h4>學生易錯點</h4>
+          <ul id="studentPitfalls"></ul>
+        </article>
+      </div>
+      <details class="source-block">
+        <summary>生成影片腳本用資料區</summary>
+        <pre id="videoScriptData"></pre>
+      </details>
+      <details class="source-block">
+        <summary>生成簡報用資料區</summary>
+        <pre id="slideData"></pre>
+      </details>
+    </section>
+
+    <section class="panel unit-summary-panel">
+      <div class="panel-title">
+        <h3>單元總結</h3>
+        <span>比率、百分率與生活應用的完整路徑</span>
+      </div>
+      <div class="summary-roadmap">
+        <span>部分量 / 全體量</span>
+        <span>百分率是 /100</span>
+        <span>分數小數百分率互換</span>
+        <span>整體量與部分量</span>
+        <span>折扣 off 幾成 加成</span>
       </div>
     </section>
   </main>

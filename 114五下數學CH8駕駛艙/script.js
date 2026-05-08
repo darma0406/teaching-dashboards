@@ -91,6 +91,156 @@ const focuses = [
   }
 ];
 
+const focusExtras = [
+  {
+    lifeExample: "班上健康檢查、出席人數、投籃練習，都可以用「部分量占全體量」描述。",
+    practice: ["把滑桿調成 18 / 23，說出分母代表什麼。", "再把全體量改成 25，觀察比率為什麼改變。", "請學生用一句話說明：比率不是只看部分量。"],
+    sectionSummary: ["比率 = 部分量 / 全體量。", "比較比率時要注意全體量是否相同。", "互補部分的比率合起來是 1。"],
+    teacherScript: "本節先從班級人數與投籃紀錄切入，讓學生辨認部分量與全體量。教師要反覆追問分母代表哪個全部，避免學生只比較部分量。",
+    video: {
+      goal: "學生能用分數和小數表示部分量占全體量的比率。",
+      concepts: "比率、部分量、全體量、互補比率。",
+      flow: "生活情境導入 -> 找部分量與全體量 -> 寫成分數 -> 比較不同總量。",
+      example: "25 人中 20 人到校，出席率是 20/25。",
+      pitfalls: "只看人數大小、分子分母放反、忘記互補比率合為 1。",
+      summary: "比率是公平比較的工具。"
+    },
+    slide: {
+      title: "認識比率：部分量占全體量",
+      points: "部分量/全體量；比率可用分數和小數；互補比率合為 1。",
+      icon: "用班級人數格子或投籃命中格子。",
+      question: "誰的進球率高？為什麼不能只看進球數？"
+    }
+  },
+  {
+    lifeExample: "手機電量、座位配置、投票結果常用百分率表示。",
+    practice: ["把百分率滑到 20%，請學生指出 100 格中的 20 格。", "切到 52%，連結座位區占全部座位。", "追問剩下的百分率是多少。"],
+    sectionSummary: ["百分率是以 100 為基準的比率。", "1% = 1/100 = 0.01。", "全部的百分率合起來是 100%。"],
+    teacherScript: "本節用 100 格圖穩定百分率概念。學生要看見百分率不是新運算，而是把全體固定成 100 份的比率表示。",
+    video: {
+      goal: "學生能說明百分率的意義並用 % 表示分母為 100 的比率。",
+      concepts: "百分率、100 等份、1%、100%。",
+      flow: "手機電量情境 -> 100 格視覺化 -> 分母 100 的分數改寫 -> 全部百分率合計。",
+      example: "18/100 = 18%，20% = 20/100。",
+      pitfalls: "把百分率當倍數、誤解 100%、忽略全部合計。",
+      summary: "百分率是生活中常用的比率語言。"
+    },
+    slide: {
+      title: "認識百分率：全部想成 100 份",
+      points: "20% 是 100 份中的 20 份；1% 是百分之一；各部分合計 100%。",
+      icon: "100 格圖或百分比長條。",
+      question: "如果學生區 52%，另外兩區合起來是多少？"
+    }
+  },
+  {
+    lifeExample: "圖書分類比例、球員打擊率、考試答對率都可能在小數與百分率間切換。",
+    practice: ["設定 3/8，先估算百分率大約在哪裡。", "輸入 37.5 檢查轉換。", "改成 7/8，觀察小數與百分率的變化。"],
+    sectionSummary: ["百分率化小數：除以 100。", "小數化百分率：乘以 100。", "分數可先化成小數再轉百分率。"],
+    teacherScript: "本節重點不是背小數點移動，而是理解百分率代表除以 100。教師可讓學生先用分數意義估算，再用計算確認。",
+    video: {
+      goal: "學生能在分數、小數與百分率間互換。",
+      concepts: "除以 100、乘以 100、分數化小數。",
+      flow: "三種記法對照 -> 百分率化小數 -> 小數化百分率 -> 分數化百分率練習。",
+      example: "0.286 = 28.6%，3/8 = 0.375 = 37.5%。",
+      pitfalls: "小數點方向錯、0.8% 誤寫成 0.8、分母不是 100 就卡住。",
+      summary: "三種記法代表同一個比率。"
+    },
+    slide: {
+      title: "互換表示：同一個比率三種寫法",
+      points: "分數、小數、百分率互通；百分率和小數差 100 倍；先估再算。",
+      icon: "三欄轉換表。",
+      question: "0.035 為什麼不是 35%？"
+    }
+  },
+  {
+    lifeExample: "身體水分比例、答對率、牆面完成率，都需要判斷要求部分量或百分率。",
+    practice: ["切換到求部分量，設定 25 題與 96%。", "切換到求百分率，設定 32 題占 40 題。", "讓學生說出這題要乘還是除。"],
+    sectionSummary: ["整體量 x 百分率 = 部分量。", "部分量 ÷ 整體量 = 百分率。", "未完成可用 100% 減已完成。"],
+    teacherScript: "本節讓學生先讀題判斷已知與未知。教師要要求學生說出整體量是誰，避免直接套錯公式。",
+    video: {
+      goal: "學生能解決生活中的百分率應用問題。",
+      concepts: "整體量、部分量、百分率、互補百分率。",
+      flow: "判斷已知量 -> 選公式 -> 代入計算 -> 用情境檢查答案合理性。",
+      example: "25 題的 96% 是 24 題；32/40 是 80%。",
+      pitfalls: "乘除混淆、百分率未轉換、未完成率判斷錯。",
+      summary: "先判斷要求什麼，再決定乘或除。"
+    },
+    slide: {
+      title: "百分率應用：先找整體量",
+      points: "求部分量用乘法；求百分率用除法；互補情境可相減。",
+      icon: "整體量、百分率、部分量三角關係圖。",
+      question: "30 平方公尺完成 70%，未完成為什麼是 9？"
+    }
+  },
+  {
+    lifeExample: "超商折扣、百貨公司 off、餐廳服務費、商店加成定價都是百分率語言。",
+    practice: ["切到打折，設定 75%，觀察實付。", "切到 off，設定 30%，比較實付比例。", "切到加成，設定 20%，觀察為何超過原價。"],
+    sectionSummary: ["打折是付原價的百分率。", "% off 是減少的百分率。", "加成是原量再加上百分率。"],
+    teacherScript: "本節把生活詞語翻譯成百分率。教師要特別區分打七折與 70% off，並讓學生用實付比例檢查。",
+    video: {
+      goal: "學生能理解折扣、off、幾成與加成並計算實付金額。",
+      concepts: "折扣、off、幾成、加成、實付比例。",
+      flow: "語意翻譯 -> 實付比例 -> 金額計算 -> 比較不同優惠。",
+      example: "30% off = 付 70%；加二成 = 原量的 120%。",
+      pitfalls: "30% off 誤為三折、加成忘記加回原量、折扣和 off 混淆。",
+      summary: "先翻譯付多少、減多少或加多少。"
+    },
+    slide: {
+      title: "折扣與加成：先翻譯生活語言",
+      points: "打折是付多少；off 是減多少；加成是多加多少。",
+      icon: "三張價格卡：打折、off、加成。",
+      question: "30% off 為什麼等於打七折？"
+    }
+  }
+];
+
+focusExtras.forEach((extra, index) => Object.assign(focuses[index], extra));
+
+const dragQuestions = [
+  {
+    type: "拖曳題",
+    mode: "drag",
+    q: "把語詞放到正確位置：哪個是部分量？哪個是全體量？",
+    targets: ["部分量", "全體量"],
+    items: [{ text: "到校 20 人", target: "部分量" }, { text: "全班 25 人", target: "全體量" }],
+    feedback: "比率要先分清楚部分量和全體量。"
+  },
+  {
+    type: "拖曳題",
+    mode: "drag",
+    q: "把百分率語句配到正確意思。",
+    targets: ["20%", "100%"],
+    items: [{ text: "100 份中的 20 份", target: "20%" }, { text: "全部", target: "100%" }],
+    feedback: "百分率是把全體固定看成 100 份。"
+  },
+  {
+    type: "拖曳題",
+    mode: "drag",
+    q: "把同一個比率的表示法放在一起。",
+    targets: ["0.6", "0.035"],
+    items: [{ text: "60%", target: "0.6" }, { text: "3.5%", target: "0.035" }],
+    feedback: "百分率和小數互換時要乘或除以 100。"
+  },
+  {
+    type: "拖曳題",
+    mode: "drag",
+    q: "把解題方式拖到正確情境。",
+    targets: ["求部分量", "求百分率"],
+    items: [{ text: "25 × 96%", target: "求部分量" }, { text: "32 ÷ 40", target: "求百分率" }],
+    feedback: "求部分量用乘法，求百分率用除法。"
+  },
+  {
+    type: "拖曳題",
+    mode: "drag",
+    q: "把生活用語配到實付比例。",
+    targets: ["付 70%", "付 120%"],
+    items: [{ text: "30% off", target: "付 70%" }, { text: "加二成", target: "付 120%" }],
+    feedback: "off 是減少，加成是增加。"
+  }
+];
+
+dragQuestions.forEach((question, index) => focuses[index].quiz.push(question));
+
 let activeFocus = 0;
 let activeQuiz = 0;
 let timerSeconds = 0;
@@ -129,11 +279,15 @@ function setFocus(index) {
   $("lessonTag").textContent = focus.tag;
   $("teachingNote").textContent = focus.note;
   $("lessonSteps").innerHTML = focus.steps.map((step) => `<span>${step}</span>`).join("");
+  $("lifeExample").textContent = focus.lifeExample;
   $("summaryImage").src = focus.summary;
   $("summaryImage").alt = focus.caption;
   $("summaryCaption").textContent = focus.caption;
+  $("sectionSummary").innerHTML = focus.sectionSummary.map((item) => `<span>${item}</span>`).join("");
   renderList($("misconceptions"), focus.misconceptions);
   renderList($("teacherPrompts"), focus.prompts);
+  renderPractice(focus);
+  renderNotebook(focus);
   focusButtons.forEach((button, buttonIndex) => button.classList.toggle("active", buttonIndex === index));
   renderVisual(focus.visual);
   renderQuiz();
@@ -161,6 +315,8 @@ function renderQuiz() {
     $("fillAnswer").addEventListener("keydown", (event) => {
       if (event.key === "Enter") checkFillAnswer(quiz);
     });
+  } else if (quiz.mode === "drag") {
+    renderDragQuestion(quiz);
   } else {
     $("quizAnswerArea").innerHTML = quiz.options.map((option, index) => (
       `<button type="button" data-answer="${index}">${option}</button>`
@@ -169,6 +325,35 @@ function renderQuiz() {
       button.addEventListener("click", () => checkChoiceAnswer(button, quiz));
     });
   }
+}
+
+function renderPractice(focus) {
+  $("practiceCaption").textContent = `${focus.title}操作節奏`;
+  $("practiceBody").innerHTML = focus.practice.map((item, index) => `
+    <article class="practice-step">
+      <strong>${index + 1}</strong>
+      <span>${item}</span>
+    </article>
+  `).join("");
+}
+
+function renderNotebook(focus) {
+  $("teacherScript").textContent = focus.teacherScript;
+  renderList($("studentPitfalls"), focus.misconceptions);
+  $("videoScriptData").textContent = [
+    "## 教學目標", focus.video.goal,
+    "## 核心概念", focus.video.concepts,
+    "## 教學流程", focus.video.flow,
+    "## 範例題", focus.video.example,
+    "## 易錯觀念", focus.video.pitfalls,
+    "## 總結", focus.video.summary
+  ].join("\n");
+  $("slideData").textContent = [
+    `投影片標題：${focus.slide.title}`,
+    `重點：${focus.slide.points}`,
+    `圖示建議：${focus.slide.icon}`,
+    `互動問題：${focus.slide.question}`
+  ].join("\n");
 }
 
 function checkChoiceAnswer(button, quiz) {
@@ -187,6 +372,67 @@ function checkFillAnswer(quiz) {
   const correct = quiz.answers.some((answer) => normalizeAnswer(answer) === value);
   input.disabled = true;
   $("checkFill").disabled = true;
+  showFeedback(correct, quiz.feedback);
+}
+
+function renderDragQuestion(quiz) {
+  $("quizAnswerArea").innerHTML = `
+    <div class="drag-zone" aria-label="拖曳配對題">
+      <div class="drag-items">
+        ${quiz.items.map((item, index) => `<button class="drag-card" type="button" draggable="true" data-index="${index}">${item.text}</button>`).join("")}
+      </div>
+      <div class="drop-grid">
+        ${quiz.targets.map((target) => `<div class="drop-target" data-target="${target}" tabindex="0"><strong>${target}</strong><div class="drop-slot"></div></div>`).join("")}
+      </div>
+      <button id="checkDrag" type="button">檢查配對</button>
+    </div>
+  `;
+  let selected = null;
+  document.querySelectorAll(".drag-card").forEach((card) => {
+    card.addEventListener("click", () => {
+      selected = card;
+      document.querySelectorAll(".drag-card").forEach((item) => item.classList.toggle("selected", item === card));
+    });
+    card.addEventListener("dragstart", (event) => {
+      event.dataTransfer.setData("text/plain", card.dataset.index);
+    });
+  });
+  document.querySelectorAll(".drop-target").forEach((target) => {
+    target.addEventListener("dragover", (event) => event.preventDefault());
+    target.addEventListener("drop", (event) => {
+      event.preventDefault();
+      const card = document.querySelector(`.drag-card[data-index="${event.dataTransfer.getData("text/plain")}"]`);
+      placeDragCard(card, target);
+    });
+    target.addEventListener("click", () => {
+      if (selected) {
+        placeDragCard(selected, target);
+        selected = null;
+      }
+    });
+  });
+  $("checkDrag").addEventListener("click", () => checkDragAnswer(quiz));
+}
+
+function placeDragCard(card, target) {
+  if (!card || !target) return;
+  target.querySelector(".drop-slot").appendChild(card);
+  card.classList.remove("selected");
+}
+
+function checkDragAnswer(quiz) {
+  let correct = true;
+  document.querySelectorAll(".drop-target").forEach((target) => {
+    target.querySelectorAll(".drag-card").forEach((card) => {
+      const item = quiz.items[Number(card.dataset.index)];
+      const match = item.target === target.dataset.target;
+      card.classList.toggle("correct", match);
+      card.classList.toggle("wrong", !match);
+      if (!match) correct = false;
+    });
+  });
+  const placed = document.querySelectorAll(".drop-slot .drag-card").length;
+  if (placed !== quiz.items.length) correct = false;
   showFeedback(correct, quiz.feedback);
 }
 
