@@ -160,26 +160,6 @@ function renderVisual() {
 }
 
 function decorateVisual() {
-  const card = $("visualStage").querySelector(".visual-card");
-  if (!card || card.querySelector(".visual-examples")) return;
-  const type = lessons[currentFocus].visual;
-  if (type === "apply") {
-    card.insertAdjacentHTML("beforeend", `
-      <div class="visual-examples">
-        <article><strong>求部分量</strong><span>全班 25 題，答對率 96%，答對 25 × 96% = 24 題。</span></article>
-        <article><strong>求百分率</strong><span>40 題答對 32 題，32 ÷ 40 = 80%。</span></article>
-      </div>
-    `);
-  }
-  if (type === "discount") {
-    card.insertAdjacentHTML("beforeend", `
-      <div class="visual-examples visual-scenarios">
-        <article><strong>打折</strong><span>1200 元打七五折，付 1200 × 75% = 900 元。</span></article>
-        <article><strong>off</strong><span>30% off 是少付 30%，所以付原價的 70%。</span></article>
-        <article><strong>加成</strong><span>成本 1000 元加二成，售價是 1000 × 120% = 1200 元。</span></article>
-      </div>
-    `);
-  }
 }
 
 function ratioVisual() {
@@ -256,8 +236,12 @@ function applyVisual() {
     const whole = Number($("whole").value);
     const p = Number($("percent").value);
     const part = Math.min(Number($("part").value), whole);
+    $("part").value = part;
     const result = mode === "part" ? whole * p / 100 : part / whole * 100;
-    $("visualStage").innerHTML = `<div class="visual-card"><h3>${mode === "part" ? `${whole} × ${p}% = ${fmt(result)}` : `${part} ÷ ${whole} = ${fmt(result)}%`}</h3><div class="bar-track"><span style="width:${mode === "part" ? p : result}%"></span></div></div>`;
+    const example = mode === "part"
+      ? `<article><strong>求部分量</strong><span>全班 ${whole} 題，答對率 ${p}%，答對 ${whole} × ${p}% = ${fmt(result)} 題。</span></article>`
+      : `<article><strong>求百分率</strong><span>全班 ${whole} 題，答對 ${part} 題，${part} ÷ ${whole} = ${fmt(result)}%。</span></article>`;
+    $("visualStage").innerHTML = `<div class="visual-card"><h3>${mode === "part" ? `${whole} × ${p}% = ${fmt(result)}` : `${part} ÷ ${whole} = ${fmt(result)}%`}</h3><div class="bar-track"><span style="width:${mode === "part" ? p : result}%"></span></div><div class="visual-examples single-example">${example}</div></div>`;
   };
   document.querySelectorAll("[data-mode]").forEach((btn) => btn.addEventListener("click", () => {
     mode = btn.dataset.mode;
@@ -267,9 +251,8 @@ function applyVisual() {
   bindRanges(draw);
   draw();
 }
-
 function discountVisual() {
-  $("visualHint").textContent = "輸入原價與百分率，顯示現價與省下多少。";
+  $("visualHint").textContent = "切換打折、off、加成，觀察付多少或增加多少。";
   $("visualControls").innerHTML = `<div class="segmented"><button class="active" data-kind="discount">打折</button><button data-kind="off">off</button><button data-kind="markup">加成</button></div>` + rangeControl("price", "原價/成本", 100, 10000, 1600) + rangeControl("rate", "百分率", 0, 120, 75);
   let kind = "discount";
   const draw = () => {
@@ -278,7 +261,12 @@ function discountVisual() {
     const payRate = kind === "discount" ? rate : kind === "off" ? 100 - rate : 100 + rate;
     const now = price * payRate / 100;
     const save = price - now;
-    $("visualStage").innerHTML = `<div class="visual-card price-card"><h3>${fmt(now)} 元</h3><p>實付比例 ${payRate}%</p><p>${save >= 0 ? `省下 ${fmt(save)} 元` : `增加 ${fmt(Math.abs(save))} 元`}</p><div class="bar-track"><span style="width:${Math.min(100, Math.max(0, payRate))}%"></span></div></div>`;
+    const example = kind === "discount"
+      ? `<article><strong>打折</strong><span>${price} 元打 ${rate}% 折，付 ${price} × ${rate}% = ${fmt(now)} 元。</span></article>`
+      : kind === "off"
+        ? `<article><strong>off</strong><span>${rate}% off 是少付 ${rate}%，所以付 ${100 - rate}%；${price} × ${100 - rate}% = ${fmt(now)} 元。</span></article>`
+        : `<article><strong>加成</strong><span>成本 ${price} 元加 ${rate}%，售價是 ${price} × ${100 + rate}% = ${fmt(now)} 元。</span></article>`;
+    $("visualStage").innerHTML = `<div class="visual-card price-card"><h3>${fmt(now)} 元</h3><p>實付比例 ${payRate}%</p><p>${save >= 0 ? `省下 ${fmt(save)} 元` : `增加 ${fmt(Math.abs(save))} 元`}</p><div class="bar-track"><span style="width:${Math.min(100, Math.max(0, payRate))}%"></span></div><div class="visual-examples single-example">${example}</div></div>`;
   };
   document.querySelectorAll("[data-kind]").forEach((btn) => btn.addEventListener("click", () => {
     kind = btn.dataset.kind;
@@ -288,7 +276,6 @@ function discountVisual() {
   bindRanges(draw);
   draw();
 }
-
 function renderQuiz() {
   const quiz = lessons[currentFocus].quiz[currentQuiz];
   $("quizStatus").textContent = `第 ${currentQuiz + 1} / ${lessons[currentFocus].quiz.length} 題`;
