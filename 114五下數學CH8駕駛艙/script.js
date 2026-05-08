@@ -108,6 +108,14 @@ const lessons = [
   }
 ];
 
+const summaryDeckPages = [
+  [1, 2, 3],
+  [4, 5],
+  [6, 7],
+  [8, 12, 13],
+  [9, 10, 11, 14, 15]
+];
+
 let currentFocus = 0;
 let currentQuiz = 0;
 let timerSeconds = 0;
@@ -129,11 +137,13 @@ function setFocus(index) {
   $("focusLabel").textContent = `教學焦點 ${index + 1}`;
   $("focusTitle").textContent = lesson.title;
   $("focusGoal").textContent = lesson.goal;
-  $("summaryImage").src = lesson.summary;
-  $("summaryImage").alt = `${lesson.title}重點整理`;
-  $("summaryBullets").innerHTML = lesson.bullets.map((item) => `<p>${item}</p>`).join("");
+  $("summaryDeck").innerHTML = summaryDeckPages[index].map((page) => `
+    <figure class="summary-slide">
+      <img src="assets/percent-adventure-page-${String(page).padStart(2, "0")}.png" alt="百分率大冒險簡報第 ${page} 頁" loading="lazy">
+      <figcaption>簡報第 ${page} 頁</figcaption>
+    </figure>
+  `).join("");
   $("practiceBody").innerHTML = lesson.practice.map((item, i) => `<article><strong>${i + 1}</strong><span>${item}</span></article>`).join("");
-  renderNotebook();
   renderVisual();
   renderQuiz();
   document.querySelectorAll(".focus-btn").forEach((btn, i) => btn.classList.toggle("active", i === index));
@@ -146,6 +156,30 @@ function renderVisual() {
   if (type === "convert") convertVisual();
   if (type === "apply") applyVisual();
   if (type === "discount") discountVisual();
+  decorateVisual();
+}
+
+function decorateVisual() {
+  const card = $("visualStage").querySelector(".visual-card");
+  if (!card || card.querySelector(".visual-examples")) return;
+  const type = lessons[currentFocus].visual;
+  if (type === "apply") {
+    card.insertAdjacentHTML("beforeend", `
+      <div class="visual-examples">
+        <article><strong>求部分量</strong><span>全班 25 題，答對率 96%，答對 25 × 96% = 24 題。</span></article>
+        <article><strong>求百分率</strong><span>40 題答對 32 題，32 ÷ 40 = 80%。</span></article>
+      </div>
+    `);
+  }
+  if (type === "discount") {
+    card.insertAdjacentHTML("beforeend", `
+      <div class="visual-examples visual-scenarios">
+        <article><strong>打折</strong><span>1200 元打七五折，付 1200 × 75% = 900 元。</span></article>
+        <article><strong>off</strong><span>30% off 是少付 30%，所以付原價的 70%。</span></article>
+        <article><strong>加成</strong><span>成本 1000 元加二成，售價是 1000 × 120% = 1200 元。</span></article>
+      </div>
+    `);
+  }
 }
 
 function ratioVisual() {
@@ -201,7 +235,6 @@ function convertVisual() {
       <div class="visual-card convert-card">
         <div>${frac(num, den)}</div>
         <div><strong>小數</strong><b>${fmt(dec)}</b></div>
-        <div><strong>百分率</strong><b>${fmt(dec * 100)}%</b></div>
         <label>試填百分率 <input id="conversionGuess" inputmode="decimal" placeholder="輸入數字"></label>
         <button id="checkConversion">檢查</button>
         <p id="conversionFeedback">先用分子除以分母，再乘以100。</p>
@@ -389,12 +422,6 @@ function feedback(correct, text) {
   if (correct) showBigEffect("✓");
 }
 
-function renderNotebook() {
-  const lesson = lessons[currentFocus];
-  $("videoScriptData").textContent = lesson.video.join("\n\n");
-  $("slideData").textContent = lesson.slides.map((slide, i) => `# Slide ${i + 1}\n標題：${slide[0]}\n重點：${slide[1]}\n圖片建議：${slide[2]}`).join("\n\n");
-}
-
 function rangeControl(id, label, min, max, value) {
   return `<label class="control">${label}<input id="${id}" type="range" min="${min}" max="${max}" value="${value}"><span id="${id}Value">${value}</span></label>`;
 }
@@ -404,6 +431,7 @@ function bindRanges(callback) {
     const value = $(`${input.id}Value`);
     if (value) value.textContent = input.value;
     callback();
+    decorateVisual();
   }));
 }
 
@@ -514,7 +542,6 @@ $("resetQuiz").addEventListener("click", renderQuiz);
 $("openPen").addEventListener("click", () => openDrawer("penDrawer"));
 $("openLaser").addEventListener("click", () => openDrawer("laserDrawer"));
 $("openTools").addEventListener("click", () => openDrawer("toolDrawer"));
-$("openNotebook").addEventListener("click", () => openDrawer("notebookDrawer"));
 document.querySelectorAll(".close-drawer").forEach((btn) => btn.addEventListener("click", () => $(btn.dataset.close).classList.remove("open")));
 
 document.querySelectorAll(".pen-color").forEach((btn) => btn.addEventListener("click", () => enablePen(btn.dataset.color)));
@@ -595,22 +622,6 @@ $("timerReset").addEventListener("click", () => {
   stopTimer();
   timerSeconds = 0;
   updateTimer();
-});
-
-$("copyNotebook").addEventListener("click", async () => {
-  const text = `${$("videoScriptData").textContent}\n\n${$("slideData").textContent}`;
-  try {
-    await navigator.clipboard.writeText(text);
-    showBigEffect("已複製");
-  } catch {
-    showBigEffect("請手動複製");
-  }
-});
-$("openNotebookLM").addEventListener("click", async () => {
-  try {
-    await navigator.clipboard.writeText(`${$("videoScriptData").textContent}\n\n${$("slideData").textContent}`);
-  } catch {}
-  window.open(notebookUrl, "_blank", "noopener");
 });
 
 window.addEventListener("resize", resizeCanvas);

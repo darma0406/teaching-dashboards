@@ -65,12 +65,8 @@
     <section class="panel summary-panel">
       <div class="panel-title">
         <h2>重點整理</h2>
-        <a id="notebookDownload" href="notebooklm-export.md" target="_blank" rel="noreferrer">NotebookLM資料</a>
       </div>
-      <div class="summary-layout">
-        <img id="summaryImage" src="assets/deck-page-01.svg" alt="比率重點整理">
-        <div id="summaryBullets" class="summary-bullets"></div>
-      </div>
+      <div id="summaryDeck" class="summary-deck"></div>
     </section>
   </main>
 
@@ -78,7 +74,6 @@
     <button id="openPen" class="round-tool" aria-label="畫筆工具">✎</button>
     <button id="openLaser" class="round-tool" aria-label="雷射筆">●</button>
     <button id="openTools" class="round-tool" aria-label="工具箱">☰</button>
-    <button id="openNotebook" class="round-tool" aria-label="NotebookLM輸出">N</button>
   </div>
 
   <aside id="penDrawer" class="drawer pen-drawer" aria-label="畫筆工具">
@@ -146,22 +141,6 @@
       </div>
     </section>
   </aside>
-
-  <aside id="notebookDrawer" class="drawer notebook-drawer" aria-label="NotebookLM輸出專區">
-    <div class="drawer-head">
-      <h2>NotebookLM輸出專區</h2>
-      <button class="close-drawer" data-close="notebookDrawer" aria-label="關閉NotebookLM輸出">×</button>
-    </div>
-    <p class="drawer-note">iframe 會受 NotebookLM 與瀏覽器 CSP / 第三方登入限制阻擋，因此改用 markdown 檔與新分頁開啟。</p>
-    <button id="copyNotebook" type="button">複製本焦點資料</button>
-    <button id="openNotebookLM" type="button">開啟 NotebookLM</button>
-    <a class="drawer-link" href="notebooklm-export.md" target="_blank" rel="noreferrer">開啟 notebooklm-export.md</a>
-    <h3>影片生成資料</h3>
-    <pre id="videoScriptData"></pre>
-    <h3>簡報生成資料</h3>
-    <pre id="slideData"></pre>
-  </aside>
-
   <script src="script.js"></script>
 </body>
 </html>
