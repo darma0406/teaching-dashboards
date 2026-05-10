@@ -8,5 +8,5 @@
   <rect x="516" y="210" width="380" height="170" rx="16" fill="#fff7e9"/>
   <text x="546" y="270" font-size="34" font-family="Microsoft JhengHei, sans-serif" font-weight="800" fill="#20302a">求百分率</text>
   <text x="546" y="330" font-size="42" font-family="Microsoft JhengHei, sans-serif" fill="#b87918">部分量 ÷ 整體量</text>
-  <text x="64" y="462" font-size="28" font-family="Microsoft JhengHei, sans-serif" fill="#60706a">例：25 題答對率 96%，答對 25 × 96% = 24 題。</text>
+  <text x="64" y="462" font-size="28" font-family="Microsoft JhengHei, sans-serif" fill="#60706a">例：25 公升果汁倒出 96%，倒出 25 × 96% = 24 公升。</text>
 </svg>

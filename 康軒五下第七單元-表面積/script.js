@@ -65,6 +65,7 @@ let penColor = "#ffffff";
 let penSize = 7;
 let drawing = false;
 let laserMode = false;
+let lastLaserTrail = 0;
 let selectedFaces = new Set();
 let cubeExpanded = false;
 let cuboidExpanded = false;
@@ -485,6 +486,7 @@ function openDrawer(id) {
 }
 
 $("openPen").addEventListener("click", () => openDrawer("penDrawer"));
+$("openLaser").addEventListener("click", () => openDrawer("laserDrawer"));
 $("openTools").addEventListener("click", () => openDrawer("toolDrawer"));
 document.querySelectorAll(".close-drawer").forEach(btn => btn.addEventListener("click", () => $(btn.dataset.close).classList.remove("open")));
 
@@ -596,11 +598,14 @@ const canvas = $("drawLayer");
 const ctx = canvas.getContext("2d");
 
 function resizeCanvas() {
-  const saved = ctx.getImageData(0, 0, canvas.width || 1, canvas.height || 1);
-  canvas.width = window.innerWidth * window.devicePixelRatio;
-  canvas.height = window.innerHeight * window.devicePixelRatio;
-  ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
-  try { ctx.putImageData(saved, 0, 0); } catch {}
+  const ratio = window.devicePixelRatio || 1;
+  canvas.width = Math.round(window.innerWidth * ratio);
+  canvas.height = Math.round(window.innerHeight * ratio);
+  canvas.style.width = `${window.innerWidth}px`;
+  canvas.style.height = `${window.innerHeight}px`;
+  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
 }
 
 window.addEventListener("resize", resizeCanvas);
@@ -608,68 +613,91 @@ resizeCanvas();
 
 $("penSize").addEventListener("input", (event) => penSize = Number(event.target.value));
 
-function activatePen() {
+function enablePen(color = penColor) {
+  penColor = color;
+  disableLaser();
   document.body.classList.add("drawing");
-  document.body.classList.remove("laser");
+  $("openPen").classList.add("active");
+  document.querySelectorAll(".pen-color").forEach((btn) => btn.classList.toggle("active", btn.dataset.color === penColor));
+}
+
+function disablePen() {
+  drawing = false;
+  document.body.classList.remove("drawing");
+  $("openPen").classList.remove("active");
+}
+
+function enableLaser() {
+  disablePen();
+  laserMode = true;
+  document.body.classList.add("laser");
+  $("openLaser").classList.add("active");
+  $("laserToggle").textContent = "關閉雷射筆";
+}
+
+function disableLaser() {
   laserMode = false;
+  document.body.classList.remove("laser");
+  $("openLaser").classList.remove("active");
   $("laserToggle").textContent = "開啟雷射筆";
 }
 
-$("laserToggle").addEventListener("click", () => {
-  laserMode = !laserMode;
-  document.body.classList.toggle("laser", laserMode);
-  document.body.classList.remove("drawing");
-  $("laserToggle").textContent = laserMode ? "關閉雷射筆" : "開啟雷射筆";
-});
-
-$("laserSize").addEventListener("input", (event) => {
-  $("laserDot").style.width = `${event.target.value}px`;
-  $("laserDot").style.height = `${event.target.value}px`;
-});
+document.querySelectorAll(".pen-color").forEach(btn => btn.addEventListener("click", () => enablePen(btn.dataset.color)));
+$("clearInk").addEventListener("click", () => ctx.clearRect(0, 0, window.innerWidth, window.innerHeight));
+$("closePenMode").addEventListener("click", disablePen);
+$("laserToggle").addEventListener("click", () => laserMode ? disableLaser() : enableLaser());
+$("laserSize").addEventListener("input", (event) => document.documentElement.style.setProperty("--laser-size", `${event.target.value}px`));
 
 function addLaserTrail(x, y) {
-  const size = Number($("laserSize").value) || 42;
+  const now = performance.now();
+  if (now - lastLaserTrail < 38) return;
+  lastLaserTrail = now;
+  const size = Number($("laserSize").value) || 54;
   const trail = document.createElement("span");
   trail.className = "laser-trail";
   trail.style.left = `${x}px`;
   trail.style.top = `${y}px`;
-  trail.style.width = `${size}px`;
-  trail.style.height = `${size}px`;
-  document.body.appendChild(trail);
-  setTimeout(() => trail.remove(), 520);
+  trail.style.setProperty("--trail-size", `${size}px`);
+  $("laserLayer").appendChild(trail);
+  setTimeout(() => trail.remove(), 720);
 }
 
-$("clearInk").addEventListener("click", () => ctx.clearRect(0, 0, canvas.width, canvas.height));
-
-document.querySelectorAll(".pen-color").forEach(btn => btn.addEventListener("click", () => {
-  penColor = btn.dataset.color;
-  activatePen();
-  document.querySelectorAll(".pen-color").forEach(item => item.classList.toggle("active", item === btn));
-}));
-
 canvas.addEventListener("pointerdown", (event) => {
-  if (laserMode) return;
+  if (!document.body.classList.contains("drawing")) return;
+  event.preventDefault();
   drawing = true;
+  canvas.setPointerCapture(event.pointerId);
   ctx.beginPath();
   ctx.moveTo(event.clientX, event.clientY);
 });
 
 canvas.addEventListener("pointermove", (event) => {
-  if (laserMode) {
-    $("laserDot").style.left = `${event.clientX}px`;
-    $("laserDot").style.top = `${event.clientY}px`;
-    addLaserTrail(event.clientX, event.clientY);
-    return;
-  }
-  if (!drawing) return;
+  if (!drawing || !document.body.classList.contains("drawing")) return;
+  event.preventDefault();
   ctx.strokeStyle = penColor;
   ctx.lineWidth = penSize;
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
   ctx.lineTo(event.clientX, event.clientY);
   ctx.stroke();
 });
 
-window.addEventListener("pointerup", () => drawing = false);
+canvas.addEventListener("pointerup", (event) => {
+  drawing = false;
+  try { canvas.releasePointerCapture(event.pointerId); } catch {}
+});
+canvas.addEventListener("pointercancel", () => drawing = false);
+
+document.addEventListener("pointermove", (event) => {
+  if (!laserMode) return;
+  $("laserDot").style.left = `${event.clientX}px`;
+  $("laserDot").style.top = `${event.clientY}px`;
+  addLaserTrail(event.clientX, event.clientY);
+});
+
+document.addEventListener("pointerdown", (event) => {
+  if (!laserMode) return;
+  $("laserDot").style.left = `${event.clientX}px`;
+  $("laserDot").style.top = `${event.clientY}px`;
+  addLaserTrail(event.clientX, event.clientY);
+});
 
 setFocus(0);

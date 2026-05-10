@@ -491,7 +491,7 @@ h3 { margin-bottom: 0; font-size: clamp(24px, 2.6vw, 34px); }
 }
 
 .pen-drawer {
-  width: min(300px, calc(100vw - 118px));
+  width: min(430px, calc(100vw - 128px));
 }
 
 .drawer.open {
@@ -603,14 +603,18 @@ h3 { margin-bottom: 0; font-size: clamp(24px, 2.6vw, 34px); }
 .pen-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 8px;
   margin-bottom: 12px;
 }
 
 .pen-color {
-  height: 44px;
+  height: 46px;
   padding: 0;
   background: var(--swatch);
+}
+
+.pen-color.active {
+  border-color: var(--yellow);
 }
 
 .pen-color[data-color="#ffffff"] {
@@ -630,47 +634,52 @@ h3 { margin-bottom: 0; font-size: clamp(24px, 2.6vw, 34px); }
   height: 100vh;
   z-index: 18;
   pointer-events: none;
+  touch-action: none;
 }
 
-body.drawing #drawLayer,
-body.laser #drawLayer {
+body.drawing #drawLayer {
   pointer-events: auto;
   cursor: crosshair;
 }
 
+#laserLayer {
+  position: fixed;
+  inset: 0;
+  z-index: 19;
+  pointer-events: none;
+}
+
+#laserDot, .laser-trail {
+  position: fixed;
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
 #laserDot {
-  position: fixed;
-  width: 42px;
-  height: 42px;
-  border-radius: 999px;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  z-index: 21;
+  width: var(--laser-size, 54px);
+  height: var(--laser-size, 54px);
   opacity: 0;
-  background: rgba(255, 75, 75, .42);
-  border: 4px solid rgba(255, 255, 255, .8);
-  box-shadow: 0 0 28px rgba(255, 75, 75, .85);
-}
-
-.laser-trail {
-  position: fixed;
-  border-radius: 999px;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  z-index: 20;
-  background: rgba(255, 75, 75, .34);
-  border: 3px solid rgba(255,255,255,.58);
-  box-shadow: 0 0 20px rgba(255,75,75,.72);
-  animation: laserFade .5s ease-out forwards;
-}
-
-@keyframes laserFade {
-  from { opacity: .95; }
-  to { opacity: 0; }
+  background: rgba(255, 38, 38, .55);
+  border: 3px solid rgba(255, 255, 255, .9);
+  box-shadow: 0 0 24px rgba(255, 38, 38, .9);
 }
 
 body.laser #laserDot {
   opacity: 1;
+}
+
+.laser-trail {
+  width: var(--trail-size, 54px);
+  height: var(--trail-size, 54px);
+  background: rgba(255, 38, 38, .24);
+  box-shadow: 0 0 18px rgba(255, 38, 38, .55);
+  animation: laserFade .62s ease-out forwards;
+}
+
+@keyframes laserFade {
+  from { opacity: .9; transform: translate(-50%, -50%) scale(1); }
+  to { opacity: 0; transform: translate(-50%, -50%) scale(.35); }
 }
 
 #bigEffect {
@@ -755,5 +764,27 @@ body.laser #laserDot {
   }
   .visual-controls {
     grid-template-columns: 1fr;
+  }
+  .floating-actions {
+    top: auto;
+    right: 10px;
+    bottom: 10px;
+    grid-auto-flow: column;
+  }
+  .round-tool {
+    width: 56px;
+    height: 56px;
+  }
+  .drawer {
+    right: 10px;
+    left: 10px;
+    top: auto;
+    bottom: 84px;
+    width: auto;
+    max-height: 68vh;
+    transform: translateY(calc(100% + 110px));
+  }
+  .drawer.open {
+    transform: translateY(0);
   }
 }

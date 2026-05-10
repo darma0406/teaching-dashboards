@@ -78,15 +78,15 @@ const lessons = [
     visual: "apply",
     summary: "assets/deck-page-04.svg",
     bullets: ["求部分量：整體量 × 百分率。", "求百分率：部分量 ÷ 整體量。", "未完成率可用 100% 減已完成率。"],
-    practice: ["切換求部分量與求百分率模式。", "用考卷答對率示範整體量乘百分率。", "用答對題數除以全部題數求百分率。"],
+    practice: ["切換求部分量與求百分率模式。", "用果汁容量示範整體量乘百分率。", "用擁有的公升數除以全部公升數求百分率。"],
     quiz: [
-      choice("選擇題", "一份考卷 25 題，答對率 96%，答對幾題？", ["24 題", "23 題", "25 題"], 0, "25 × 96% = 24。"),
+      choice("選擇題", "一桶果汁有 25 公升，擁有 96%，擁有幾公升？", ["24 公升", "23 公升", "25 公升"], 0, "25 × 96% = 24。"),
       trueFalse("求 72 公斤的 60%，可以列成 72 × 0.6。", true, "60% 可以先化成 0.6。"),
-      fill("答對 32 題、答錯 8 題，答對率是 ____%。", ["80"], "全部 40 題，32 ÷ 40 = 80%。"),
+      fill("一桶果汁有 40 公升，擁有 32 公升，擁有率是 ____%。", ["80"], "32 ÷ 40 = 80%。"),
       choice("情境題", "30 平方公尺的牆完成 70%，未完成多少平方公尺？", ["9 平方公尺", "21 平方公尺", "7 平方公尺"], 0, "未完成是 30%，30 × 30% = 9。"),
       drag("把算式配到正確情境。", ["求部分量", "求百分率"], [["25 × 96%", "求部分量"], ["32 ÷ 40", "求百分率"]], "求部分量用乘法，求百分率用除法。")
     ],
-    video: ["# 教學主題\n百分率應用", "# 教學目標\n學生能解決整體量、部分量、百分率問題。", "# 核心概念\n整體量×百分率=部分量；部分量÷整體量=百分率。", "# 教學流程\n判斷已知量，選擇乘或除，檢查答案是否合理。", "# 範例題\n25題的96%是24題。", "# 課堂互動\n切換模式並說明為什麼用乘法或除法。", "# 總結\n先找整體量，再決定運算。"],
+    video: ["# 教學主題\n百分率應用", "# 教學目標\n學生能解決整體量、部分量、百分率問題。", "# 核心概念\n整體量×百分率=部分量；部分量÷整體量=百分率。", "# 教學流程\n判斷已知量，選擇乘或除，檢查答案是否合理。", "# 範例題\n25 公升果汁的 96% 是 24 公升。", "# 課堂互動\n切換模式並說明為什麼用乘法或除法。", "# 總結\n先找整體量，再決定運算。"],
     slides: [["找整體量", "先判斷全體是什麼。", "題目標註圖"], ["求部分量", "整體量乘百分率。", "百分率長條"], ["求百分率", "部分量除以整體量。", "除法箭頭圖"]]
   },
   {
@@ -171,7 +171,7 @@ function ratioVisual() {
     $("part").value = part;
     const decimal = part / whole;
     $("visualStage").innerHTML = `
-      <div class="visual-card">
+      <div class="visual-card ratio-card">
         <div class="visual-topline">
           <div class="large-fraction">${frac(part, whole)}</div>
           <p>小數 ${fmt(decimal)}　百分率 ${fmt(decimal * 100)}%</p>
@@ -189,7 +189,7 @@ function percentVisual() {
   const draw = () => {
     const p = Number($("percent").value);
     $("visualStage").innerHTML = `
-      <div class="visual-card">
+      <div class="visual-card percent-card">
         <div class="visual-topline">
           <h3>${p}%</h3>
           <div class="large-fraction">${frac(p, 100)}</div>
@@ -211,17 +211,19 @@ function convertVisual() {
     const num = Math.min(Number($("num").value), den);
     $("num").value = num;
     const dec = num / den;
+    const roundedDecimal = roundTo2(dec);
+    const roundedPercent = roundTo2(roundedDecimal * 100);
     $("visualStage").innerHTML = `
       <div class="visual-card convert-card">
         <div>${frac(num, den)}</div>
-        <div><strong>小數</strong><b>${fmt(dec)}</b></div>
+        <div><strong>小數</strong><b>${fmt2(roundedDecimal)}</b></div>
         <label>試填百分率 <input id="conversionGuess" inputmode="decimal" placeholder="輸入數字"></label>
         <button id="checkConversion">檢查</button>
-        <p id="conversionFeedback">先用分子除以分母，再乘以100。</p>
+        <p id="conversionFeedback">小數先四捨五入到小數點後第二位，再用這個小數乘以 100。</p>
       </div>`;
     $("checkConversion").addEventListener("click", () => {
       const guess = Number(($("conversionGuess").value || "").replace("%", ""));
-      $("conversionFeedback").textContent = Math.abs(guess - dec * 100) < .05 ? "配對成功：轉換正確。" : `再想想：答案是 ${fmt(dec * 100)}%。`;
+      $("conversionFeedback").textContent = Math.abs(guess - roundedPercent) < .05 ? "配對成功：轉換正確。" : `再想想：答案是 ${fmt2(roundedPercent)}%。`;
     });
   };
   bindRanges(draw);
@@ -230,7 +232,7 @@ function convertVisual() {
 
 function applyVisual() {
   $("visualHint").textContent = "切換模式，判斷要求部分量或百分率。";
-  $("visualControls").innerHTML = `<div class="segmented"><button class="active" data-mode="part">求部分量</button><button data-mode="rate">求百分率</button></div>` + rangeControl("whole", "整體量", 1, 100, 25) + rangeControl("percent", "百分率", 0, 100, 96) + rangeControl("part", "部分量", 0, 100, 24);
+  $("visualControls").innerHTML = `<div class="segmented"><button class="active" data-mode="part">求擁有量</button><button data-mode="rate">求擁有率</button></div>` + rangeControl("whole", "果汁總量（公升）", 1, 100, 25) + rangeControl("percent", "擁有率", 0, 100, 96) + rangeControl("part", "擁有量（公升）", 0, 100, 24);
   let mode = "part";
   const draw = () => {
     const whole = Number($("whole").value);
@@ -238,10 +240,21 @@ function applyVisual() {
     const part = Math.min(Number($("part").value), whole);
     $("part").value = part;
     const result = mode === "part" ? whole * p / 100 : part / whole * 100;
-    const example = mode === "part"
-      ? `<article><strong>求部分量</strong><span>全班 ${whole} 題，答對率 ${p}%，答對 ${whole} × ${p}% = ${fmt(result)} 題。</span></article>`
-      : `<article><strong>求百分率</strong><span>全班 ${whole} 題，答對 ${part} 題，${part} ÷ ${whole} = ${fmt(result)}%。</span></article>`;
-    $("visualStage").innerHTML = `<div class="visual-card"><h3>${mode === "part" ? `${whole} × ${p}% = ${fmt(result)}` : `${part} ÷ ${whole} = ${fmt(result)}%`}</h3><div class="bar-track"><span style="width:${mode === "part" ? p : result}%"></span></div><div class="visual-examples single-example">${example}</div></div>`;
+    const shownPercent = mode === "part" ? p : result;
+    const shownPart = mode === "part" ? result : part;
+    syncUnknownControl(mode, result);
+    $("visualStage").innerHTML = `
+      <div class="visual-card apply-card">
+        <div class="apply-text">
+          <h3>果汁共有 ${whole} 公升</h3>
+          <p>我們擁有 ${mode === "rate" ? "？" : p}% ，共有 ${mode === "part" ? "？" : part} 公升。</p>
+          <strong>${mode === "part" ? `${whole} × ${p}% = ${fmt(result)} 公升` : `${part} ÷ ${whole} = ${fmt(result)}%`}</strong>
+        </div>
+        <div class="juice-tank" aria-hidden="true"><span style="height:${Math.min(100, shownPercent)}%"></span></div>
+        <div class="visual-examples single-example">
+          <article><strong>${mode === "part" ? "求擁有量" : "求擁有率"}</strong><span>果汁總量 ${whole} 公升，我們擁有 ${fmt(shownPercent)}%，也就是 ${fmt(shownPart)} 公升。</span></article>
+        </div>
+      </div>`;
   };
   document.querySelectorAll("[data-mode]").forEach((btn) => btn.addEventListener("click", () => {
     mode = btn.dataset.mode;
@@ -253,7 +266,7 @@ function applyVisual() {
 }
 function discountVisual() {
   $("visualHint").textContent = "切換打折、off、加成，觀察付多少或增加多少。";
-  $("visualControls").innerHTML = `<div class="segmented"><button class="active" data-kind="discount">打折</button><button data-kind="off">off</button><button data-kind="markup">加成</button></div>` + rangeControl("price", "原價/成本", 100, 10000, 1600) + rangeControl("rate", "百分率", 0, 120, 75);
+  $("visualControls").innerHTML = `<div class="segmented"><button class="active" data-kind="discount">打折</button><button data-kind="off">off</button><button data-kind="markup">加成</button></div>` + rangeControl("price", "原價/成本", 100, 10000, 1600, 100) + rangeControl("rate", "百分率", 0, 120, 75);
   let kind = "discount";
   const draw = () => {
     const price = Number($("price").value);
@@ -266,7 +279,16 @@ function discountVisual() {
       : kind === "off"
         ? `<article><strong>off</strong><span>${rate}% off 是少付 ${rate}%，所以付 ${100 - rate}%；${price} × ${100 - rate}% = ${fmt(now)} 元。</span></article>`
         : `<article><strong>加成</strong><span>成本 ${price} 元加 ${rate}%，售價是 ${price} × ${100 + rate}% = ${fmt(now)} 元。</span></article>`;
-    $("visualStage").innerHTML = `<div class="visual-card price-card"><h3>${fmt(now)} 元</h3><p>實付比例 ${payRate}%</p><p>${save >= 0 ? `省下 ${fmt(save)} 元` : `增加 ${fmt(Math.abs(save))} 元`}</p><div class="bar-track"><span style="width:${Math.min(100, Math.max(0, payRate))}%"></span></div><div class="visual-examples single-example">${example}</div></div>`;
+    $("visualStage").innerHTML = `
+      <div class="visual-card price-card">
+        <div class="price-results">
+          <strong>${fmt(now)} 元</strong>
+          <strong>實付比例 ${payRate}%</strong>
+          <strong class="${save >= 0 ? "saving" : "markup"}">${save >= 0 ? `省下 ${fmt(save)} 元` : `增加 ${fmt(Math.abs(save))} 元`}</strong>
+        </div>
+        <div class="bar-track"><span style="width:${Math.min(100, Math.max(0, payRate))}%"></span></div>
+        <div class="visual-examples single-example">${example}</div>
+      </div>`;
   };
   document.querySelectorAll("[data-kind]").forEach((btn) => btn.addEventListener("click", () => {
     kind = btn.dataset.kind;
@@ -409,8 +431,8 @@ function feedback(correct, text) {
   if (correct) showBigEffect("✓");
 }
 
-function rangeControl(id, label, min, max, value) {
-  return `<label class="control">${label}<input id="${id}" type="range" min="${min}" max="${max}" value="${value}"><span id="${id}Value">${value}</span></label>`;
+function rangeControl(id, label, min, max, value, step = 1) {
+  return `<label class="control">${label}<input id="${id}" type="range" min="${min}" max="${max}" step="${step}" value="${value}"><span id="${id}Value">${value}</span></label>`;
 }
 
 function bindRanges(callback) {
@@ -422,12 +444,37 @@ function bindRanges(callback) {
   }));
 }
 
+function syncUnknownControl(mode, result) {
+  const partInput = $("part");
+  const percentInput = $("percent");
+  if (!partInput || !percentInput) return;
+  const partControl = partInput.closest(".control");
+  const percentControl = percentInput.closest(".control");
+  partInput.disabled = mode === "part";
+  percentInput.disabled = mode === "rate";
+  partControl.classList.toggle("unknown-control", mode === "part");
+  percentControl.classList.toggle("unknown-control", mode === "rate");
+  if (mode === "part") {
+    $("partValue").textContent = fmt(result);
+  } else {
+    $("percentValue").textContent = `${fmt(result)}%`;
+  }
+}
+
 function tiles(total, active) {
   return Array.from({ length: total }, (_, i) => `<span class="tile ${i < active ? "on" : ""}"></span>`).join("");
 }
 
 function fmt(value) {
   return Number.isInteger(value) ? String(value) : String(Math.round(value * 100) / 100);
+}
+
+function roundTo2(value) {
+  return Math.round((Number(value) + Number.EPSILON) * 100) / 100;
+}
+
+function fmt2(value) {
+  return roundTo2(value).toFixed(2);
 }
 
 function normalize(value) {

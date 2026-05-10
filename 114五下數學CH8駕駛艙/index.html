@@ -7,12 +7,17 @@
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="page-shell">
   <canvas id="drawLayer" aria-hidden="true"></canvas>
   <div id="laserLayer" aria-hidden="true"><span id="laserDot"></span></div>
   <div id="bigEffect" aria-live="polite"></div>
 
   <a class="home-link" href="../國小數學/" aria-label="回國小數學首頁">首頁</a>
+
+  <header class="hero" id="top">
+    <p class="eyebrow">國小數學 5 下 第 08 單元</p>
+    <h1>百分率教學駕駛艙</h1>
+  </header>
 
   <nav class="focus-nav" aria-label="教學焦點">
     <button class="focus-btn active" data-focus="0">認識比率</button>
@@ -22,14 +27,14 @@
     <button class="focus-btn" data-focus="4">折扣與加成</button>
   </nav>
 
-  <main class="dashboard">
-    <section class="lesson-head">
+  <main class="dashboard lesson-stage">
+    <section class="lesson-head focus-panel">
       <p id="focusLabel" class="eyebrow">教學焦點 1</p>
       <h1 id="focusTitle">認識比率</h1>
       <p id="focusGoal">用部分量與全體量建立比率概念。</p>
     </section>
 
-    <section class="panel visual-panel">
+    <section class="panel visual-panel focus-panel interactive-area">
       <div class="panel-title">
         <h2>互動視覺化</h2>
         <span id="visualHint">拖動或調整數值，連結圖像與算式</span>
@@ -38,7 +43,7 @@
       <div id="visualControls" class="visual-controls"></div>
     </section>
 
-    <section class="panel practice-panel">
+    <section class="panel practice-panel focus-panel practice-area">
       <div class="panel-title">
         <h2>操作練習</h2>
         <span id="practiceCaption">全班一起操作</span>
@@ -46,7 +51,7 @@
       <div id="practiceBody" class="practice-body"></div>
     </section>
 
-    <section class="panel quiz-panel">
+    <section class="panel quiz-panel focus-panel quiz-area">
       <div class="panel-title">
         <h2>形成性評量</h2>
         <span id="quizStatus">第 1 / 5 題</span>
@@ -62,7 +67,7 @@
       </div>
     </section>
 
-    <section class="panel summary-panel">
+    <section class="panel summary-panel focus-panel summary-area">
       <div class="panel-title">
         <h2>重點整理</h2>
       </div>

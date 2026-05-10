@@ -10,14 +10,26 @@
   --line: rgba(255, 247, 214, .35);
   --panel: rgba(8, 42, 34, .76);
   --shadow: rgba(0, 0, 0, .32);
+  --activity-h: 832px;
+  --practice-h: 310px;
+  --summary-h: calc(100vh - 132px);
 }
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; min-width: 0; }
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  background-color: #062b23;
+}
+
 html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
   min-height: 100vh;
+  overflow-x: hidden;
   color: var(--chalk);
   font-family: "Microsoft JhengHei", "Noto Sans TC", Arial, sans-serif;
   background:
@@ -45,10 +57,10 @@ button {
   color: var(--chalk);
   background: rgba(255,255,255,.06);
   border-radius: 8px;
-  padding: 10px 16px;
+  padding: 14px 22px;
   cursor: pointer;
   touch-action: manipulation;
-  font-size: 24px;
+  font-size: 26px;
 }
 
 button.active, button:active {
@@ -67,6 +79,10 @@ input, textarea {
   font-size: 24px;
 }
 
+img, video, canvas, iframe {
+  max-width: 100%;
+}
+
 .home-link {
   position: fixed;
   left: 18px;
@@ -82,36 +98,66 @@ input, textarea {
   background: rgba(8, 42, 34, .9);
   box-shadow: 0 10px 22px var(--shadow);
   text-decoration: none;
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 700;
 }
 
 .focus-nav, .dashboard {
-  width: min(1480px, calc(100vw - 56px));
+  width: calc(100vw - 56px);
   margin: 0 auto;
 }
 
+.hero {
+  min-height: 170px;
+  padding: 20px 28px 14px;
+}
+
+.hero .eyebrow {
+  margin-bottom: 2px;
+  font-size: clamp(22px, 1.7vw, 30px);
+}
+
+.hero h1 {
+  max-width: 1280px;
+  font-size: clamp(62px, 5.6vw, 92px);
+  line-height: .98;
+}
+
 .focus-nav {
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 20;
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 8px;
-  padding: 12px 0 10px 100px;
+  padding: 10px 0 10px 112px;
   background: linear-gradient(135deg, rgba(16,59,49,.98), rgba(8,41,32,.98));
 }
 
 .focus-btn {
-  min-height: 54px;
-  font-size: clamp(20px, 1.45vw, 25px);
+  min-height: 60px;
+  font-size: clamp(26px, 1.55vw, 30px);
   font-weight: 700;
 }
 
-.dashboard { padding-bottom: 44px; }
+.dashboard {
+  overflow: visible;
+  padding: 20px 0 44px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "head"
+    "visual"
+    "practice"
+    "quiz"
+    "summary";
+  align-content: start;
+  gap: 28px;
+}
 
 .lesson-head {
-  margin-bottom: 12px;
+  grid-area: head;
+  display: block;
+  padding: 0 2px 18px;
 }
 
 .eyebrow {
@@ -133,16 +179,46 @@ p, li, span, label, a, pre { font-size: 24px; line-height: 1.45; }
 }
 
 .panel {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  min-width: 0;
+  min-height: auto;
   border: 2px solid var(--line);
   border-radius: 8px;
-  overflow: hidden;
-  margin-bottom: 18px;
+  overflow: visible;
+  margin-bottom: 0;
   box-shadow: 0 12px 26px var(--shadow);
   background: var(--panel);
+  justify-self: stretch;
+}
+
+.visual-panel,
+.practice-panel,
+.quiz-panel,
+.summary-panel {
+  min-height: 0;
+  display: grid;
+}
+
+.visual-panel { grid-area: visual; grid-template-rows: auto auto auto; }
+.practice-panel { grid-area: practice; grid-template-rows: auto minmax(0, 1fr); }
+.quiz-panel { grid-area: quiz; grid-template-rows: auto auto auto minmax(0, 1fr) auto auto; }
+.summary-panel { grid-area: summary; grid-template-rows: auto minmax(0, 1fr); }
+.practice-panel {
+  aspect-ratio: auto;
+}
+
+.summary-panel {
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  overflow: visible;
 }
 
 .panel-title {
-  min-height: 64px;
+  min-height: 68px;
   display: flex;
   justify-content: space-between;
   gap: 14px;
@@ -157,41 +233,105 @@ p, li, span, label, a, pre { font-size: 24px; line-height: 1.45; }
 }
 
 .visual-stage {
-  min-height: 330px;
+  min-height: 640px;
+  height: auto;
+  overflow: visible;
   display: grid;
   place-items: center;
-  padding: 20px 28px;
+  padding: 38px 56px;
   background: rgba(0,0,0,.18);
 }
 
 .visual-controls, .practice-body, .quiz-type, .quiz-question, .quiz-answer-area, .quiz-feedback, .quiz-actions {
-  margin: 18px 24px;
+  margin: 12px 18px;
 }
 
 .visual-controls {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+  flex-shrink: 0;
+  align-items: end;
 }
 
 .control {
+  position: relative;
   display: grid;
   gap: 8px;
   color: var(--muted);
 }
 
+.control.unknown-control {
+  filter: grayscale(1);
+  opacity: .58;
+}
+
+.control.unknown-control::after {
+  content: "?";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--red);
+  font-size: clamp(48px, 4.8vw, 78px);
+  font-weight: 900;
+  text-shadow: 0 0 12px rgba(0,0,0,.65);
+  pointer-events: none;
+}
+
 input[type="range"] { width: 100%; min-height: 44px; }
 
+.lesson-stage,
+.focus-panel,
+.activity-layout,
+.card,
+.interactive-area,
+.practice-area,
+.quiz-area,
+.summary-area,
+.visual-panel,
+.practice-panel,
+.quiz-panel,
+.summary-panel,
+.visual-stage,
+.practice-body,
+.quiz-answer-area,
+.summary-deck {
+  min-width: 0;
+  min-height: 0;
+}
+
 .visual-card {
-  width: min(100%, 860px);
+  width: 100%;
+  max-width: 1420px;
+}
+
+.percent-card,
+.ratio-card {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 34px;
+  align-items: center;
+  justify-items: center;
+  width: 100%;
 }
 
 .visual-topline {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
+  width: 100%;
+  display: grid;
+  gap: 18px;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 4px;
+}
+
+.ratio-card .visual-topline {
+  grid-template-columns: minmax(180px, .38fr) minmax(0, 1fr);
+}
+
+.percent-card .visual-topline {
+  grid-template-columns: repeat(3, minmax(0, auto));
+  justify-content: center;
+  gap: 48px;
 }
 
 .visual-topline h3, .price-card h3 {
@@ -199,13 +339,35 @@ input[type="range"] { width: 100%; min-height: 44px; }
   font-size: clamp(56px, 7.6vw, 104px);
 }
 
+.price-card h3 {
+  font-size: clamp(38px, 5vw, 70px);
+}
+
+.price-card .saving {
+  color: var(--red);
+  font-size: clamp(48px, 6vw, 92px);
+  font-weight: 900;
+  line-height: 1.08;
+}
+
+.price-card .markup {
+  color: var(--yellow);
+  font-size: clamp(40px, 5vw, 76px);
+  font-weight: 900;
+  line-height: 1.08;
+}
+
 .large-fraction .fraction {
   font-size: clamp(58px, 7vw, 96px);
 }
 
 .visual-topline p {
-  font-size: clamp(34px, 3.4vw, 54px);
+  margin-bottom: 0;
+  color: var(--chalk);
+  font-size: clamp(42px, 4vw, 74px);
   line-height: 1.2;
+  white-space: normal;
+  text-align: center;
 }
 
 .fraction {
@@ -225,10 +387,11 @@ input[type="range"] { width: 100%; min-height: 44px; }
 }
 
 .tile-grid {
+  width: min(100%, 1080px);
   display: grid;
   grid-template-columns: repeat(var(--cols), 1fr);
-  gap: 5px;
-  margin: 12px 0;
+  gap: 6px;
+  margin: 0 auto;
 }
 
 .tile {
@@ -237,8 +400,16 @@ input[type="range"] { width: 100%; min-height: 44px; }
   background: rgba(255,255,255,.14);
 }
 
+.ratio-card .tile,
+.percent-card .tile {
+  min-height: 68px;
+}
+
 .tile.on { background: var(--blue); }
 .hundred .tile { min-width: 0; }
+.percent-card .hundred .tile {
+  max-width: none;
+}
 
 .bar-track {
   height: 42px;
@@ -256,7 +427,7 @@ input[type="range"] { width: 100%; min-height: 44px; }
 
 .convert-card {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
 }
 
@@ -311,9 +482,13 @@ input[type="range"] { width: 100%; min-height: 44px; }
 }
 
 .practice-body {
+  min-height: 0;
+  overflow: visible;
+  overflow-x: hidden;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 14px;
+  align-content: start;
 }
 
 .practice-body article {
@@ -342,13 +517,17 @@ input[type="range"] { width: 100%; min-height: 44px; }
 }
 
 .quiz-question {
-  font-size: clamp(28px, 2.8vw, 42px);
+  font-size: clamp(30px, 2.8vw, 42px);
   font-weight: 900;
 }
 
 .quiz-answer-area {
+  min-height: 0;
+  overflow: visible;
+  overflow-x: hidden;
   display: grid;
   gap: 12px;
+  align-content: start;
 }
 
 .quiz-answer-area button {
@@ -378,6 +557,7 @@ input[type="range"] { width: 100%; min-height: 44px; }
 
 .quiz-feedback {
   min-height: 44px;
+  font-size: 28px;
   color: var(--muted);
   font-weight: 800;
 }
@@ -445,18 +625,38 @@ input[type="range"] { width: 100%; min-height: 44px; }
 }
 
 .summary-deck {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  height: auto;
+  min-height: 0;
+  overflow: visible;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
   gap: 18px;
-  margin: 18px 24px;
+  margin: 0;
+  padding: 18px 0 24px;
 }
 
 .summary-slide {
+  width: 100%;
+  min-height: var(--summary-h);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   margin: 0;
 }
 
+.summary-slide:first-child {
+  min-height: var(--summary-h);
+}
+
 .summary-slide img {
-  width: 100%;
+  width: min(100%, calc(var(--summary-h) * 16 / 9));
+  max-width: 100%;
+  height: auto;
+  max-height: calc(var(--summary-h) - 44px);
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
   border: 2px solid var(--line);
   border-radius: 8px;
   background: rgba(255,255,255,.08);
@@ -466,8 +666,109 @@ input[type="range"] { width: 100%; min-height: 44px; }
 .summary-slide figcaption {
   margin-top: 8px;
   color: var(--blue);
-  font-size: 22px;
+  font-size: 24px;
   text-align: center;
+}
+
+.juice-tank {
+  width: min(100%, 520px);
+  height: clamp(170px, 28vh, 300px);
+  display: flex;
+  align-items: flex-end;
+  margin: 18px auto;
+  border: 4px solid rgba(255,247,214,.78);
+  border-radius: 8px 8px 28px 28px;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px),
+    rgba(255,255,255,.06);
+  background-size: 10% 100%;
+}
+
+.apply-card {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, .8fr);
+  grid-template-areas:
+    "text tank"
+    "example tank";
+  gap: 16px 28px;
+  align-items: center;
+}
+
+.apply-text {
+  grid-area: text;
+}
+
+.apply-text h3 {
+  font-size: clamp(42px, 4.2vw, 72px);
+  line-height: 1.05;
+}
+
+.apply-text p {
+  color: var(--muted);
+  font-size: clamp(34px, 3.2vw, 54px);
+  font-weight: 800;
+  line-height: 1.18;
+}
+
+.apply-text strong {
+  display: block;
+  color: var(--yellow);
+  font-size: clamp(38px, 3.6vw, 62px);
+  line-height: 1.08;
+}
+
+.apply-card .juice-tank {
+  grid-area: tank;
+}
+
+.apply-card .visual-examples {
+  grid-area: example;
+  margin-top: 0;
+}
+
+.price-card {
+  width: 100%;
+  display: grid;
+  gap: 20px;
+  align-content: center;
+}
+
+.price-results {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.price-results strong {
+  min-height: 140px;
+  display: grid;
+  place-items: center;
+  padding: 14px;
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  color: var(--yellow);
+  background: rgba(255,255,255,.06);
+  font-size: clamp(40px, 4.2vw, 72px);
+  line-height: 1.1;
+  text-align: center;
+}
+
+.price-results .saving {
+  color: var(--red);
+}
+
+.price-results .markup {
+  color: var(--yellow);
+}
+
+.juice-tank span {
+  display: block;
+  width: 100%;
+  min-height: 2%;
+  background: linear-gradient(180deg, #ffe36f, #ff9f43);
+  box-shadow: inset 0 12px 18px rgba(255,255,255,.22);
 }
 
 .floating-actions {
@@ -680,22 +981,131 @@ body.laser #laserDot { opacity: 1; }
   100% { opacity: 0; transform: translate(-50%, -55%) scale(1.08); }
 }
 
+@media (max-height: 1050px) and (min-width: 921px) {
+  :root { --activity-h: calc(100vh - 190px); }
+}
+
 @media (max-width: 920px) {
   .focus-nav {
-    display: flex;
-    overflow-x: auto;
-    padding-left: 108px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    overflow: visible;
+    padding-left: 0;
+    padding-top: 82px;
   }
-  .focus-btn { flex: 0 0 190px; }
+  .focus-btn {
+    min-height: 56px;
+    font-size: 26px;
+  }
+  .dashboard {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "head"
+      "visual"
+      "practice"
+      "quiz"
+      "summary";
+  }
+  .panel {
+    width: 100%;
+    height: auto;
+    min-height: auto;
+  }
   .practice-body, .summary-deck, .convert-card { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 640px) {
-  p, li, span, label, a, pre, button, input, textarea { font-size: 20px; }
+  p, li, span, label, a, pre, button, input, textarea { font-size: 24px; }
   .focus-nav, .dashboard { width: calc(100vw - 20px); }
-  .focus-nav { padding-left: 0; padding-top: 82px; }
+  .focus-nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .focus-btn {
+    min-height: 66px;
+    padding: 10px 8px;
+    font-size: 25px;
+    line-height: 1.18;
+    white-space: normal;
+  }
   .home-link { position: absolute; }
-  .visual-stage { padding: 14px; }
+  .panel-title {
+    grid-template-columns: 1fr;
+    display: grid;
+    gap: 4px;
+    min-height: auto;
+    padding: 8px 14px;
+  }
+  .panel-title h2 {
+    font-size: 30px;
+    line-height: 1.08;
+  }
+  .panel-title span {
+    font-size: 20px;
+    line-height: 1.25;
+  }
+  .visual-stage {
+    align-items: start;
+    padding: 14px;
+  }
+  .visual-card {
+    width: 100%;
+  }
+  .percent-card,
+  .ratio-card,
+  .apply-card {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "text"
+      "tank"
+      "example";
+    gap: 10px;
+  }
+  .visual-topline {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 8px;
+  }
+  .ratio-card .visual-topline,
+  .percent-card .visual-topline {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .visual-topline h3,
+  .visual-topline p,
+  .large-fraction .fraction {
+    font-size: 34px;
+  }
+  .visual-controls {
+    grid-template-columns: 1fr;
+    margin: 8px 14px;
+  }
+  .tile-grid {
+    width: 100%;
+    gap: 3px;
+  }
+  .ratio-card .tile,
+  .percent-card .tile {
+    min-height: 0;
+  }
+  .percent-card .hundred .tile {
+    max-width: none;
+  }
+  .apply-text h3,
+  .apply-text p,
+  .apply-text strong {
+    font-size: 32px;
+  }
+  .juice-tank {
+    height: 150px;
+  }
+  .price-results {
+    grid-template-columns: 1fr;
+  }
+  .price-results strong {
+    min-height: 84px;
+    font-size: 34px;
+  }
   .drop-grid, .quiz-actions, .range-row, .custom-time { grid-template-columns: 1fr; }
   .floating-actions {
     top: auto;
@@ -714,4 +1124,10 @@ body.laser #laserDot { opacity: 1; }
     transform: translateY(calc(100% + 110px));
   }
   .drawer.open { transform: translateY(0); }
+}
+
+@media (max-width: 640px) and (orientation: portrait) {
+  .dashboard {
+    grid-template-rows: auto;
+  }
 }

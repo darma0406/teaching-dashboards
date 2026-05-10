@@ -8,7 +8,7 @@
 </head>
 <body>
   <canvas id="drawLayer" aria-hidden="true"></canvas>
-  <div id="laserDot" aria-hidden="true"></div>
+  <div id="laserLayer" aria-hidden="true"><span id="laserDot"></span></div>
   <div id="bigEffect" aria-live="polite"></div>
   <a class="home-link" href="../國小數學/" aria-label="回國小數學首頁">首頁</a>
 
@@ -76,6 +76,7 @@
 
   <div class="floating-actions" aria-label="浮動工具">
     <button id="openPen" class="round-tool" aria-label="畫筆工具">✎</button>
+    <button id="openLaser" class="round-tool" aria-label="雷射筆">●</button>
     <button id="openTools" class="round-tool" aria-label="工具箱">☰</button>
   </div>
 
@@ -93,12 +94,18 @@
       <input id="penSize" type="range" min="3" max="18" value="7">
     </label>
     <button id="clearInk" class="icon-button" aria-label="清除筆跡" title="清除筆跡">🗑</button>
-    <hr>
-    <h3>雷射筆</h3>
+    <button id="closePenMode" type="button">關閉畫筆</button>
+  </aside>
+
+  <aside id="laserDrawer" class="drawer pen-drawer" aria-label="雷射筆工具">
+    <div class="drawer-head">
+      <h3>雷射筆</h3>
+      <button class="close-drawer" data-close="laserDrawer" aria-label="關閉雷射筆面板">×</button>
+    </div>
     <label class="control">雷射粗細
-      <input id="laserSize" type="range" min="18" max="90" value="42">
+      <input id="laserSize" type="range" min="24" max="110" value="54">
     </label>
-    <button id="laserToggle">開啟雷射筆</button>
+    <button id="laserToggle" type="button">開啟雷射筆</button>
   </aside>
 
   <aside id="toolDrawer" class="drawer tool-drawer" aria-label="工具箱">
