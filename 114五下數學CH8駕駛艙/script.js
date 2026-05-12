@@ -275,7 +275,7 @@ function discountVisual() {
     const now = price * payRate / 100;
     const save = price - now;
     const example = kind === "discount"
-      ? `<article><strong>打折</strong><span>${price} 元打 ${rate}% 折，付 ${price} × ${rate}% = ${fmt(now)} 元。</span></article>`
+      ? `<article><strong>打折</strong><span>${price} 元打 ${rate} 折，付 ${price} × ${rate}% = ${fmt(now)} 元。</span></article>`
       : kind === "off"
         ? `<article><strong>off</strong><span>${rate}% off 是少付 ${rate}%，所以付 ${100 - rate}%；${price} × ${100 - rate}% = ${fmt(now)} 元。</span></article>`
         : `<article><strong>加成</strong><span>成本 ${price} 元加 ${rate}%，售價是 ${price} × ${100 + rate}% = ${fmt(now)} 元。</span></article>`;
